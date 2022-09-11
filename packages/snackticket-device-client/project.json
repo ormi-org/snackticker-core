@@ -1,0 +1,93 @@
+{
+  "projectType": "application",
+  "sourceRoot": "packages/snackticket-device-client/src",
+  "prefix": "snackticket-core",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/snackticket-device-client",
+        "index": "packages/snackticket-device-client/src/index.html",
+        "main": "packages/snackticket-device-client/src/main.ts",
+        "polyfills": "packages/snackticket-device-client/src/polyfills.ts",
+        "tsConfig": "packages/snackticket-device-client/tsconfig.app.json",
+        "inlineStyleLanguage": "sass",
+        "assets": [
+          "packages/snackticket-device-client/src/favicon.ico",
+          "packages/snackticket-device-client/src/assets"
+        ],
+        "styles": ["packages/snackticket-device-client/src/styles.sass"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "packages/snackticket-device-client/src/environments/environment.ts",
+              "with": "packages/snackticket-device-client/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "snackticket-device-client:build:production"
+        },
+        "development": {
+          "browserTarget": "snackticket-device-client:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "snackticket-device-client:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "packages/snackticket-device-client/**/*.ts",
+          "packages/snackticket-device-client/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/snackticket-device-client"],
+      "options": {
+        "jestConfig": "packages/snackticket-device-client/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,28 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@snackticket-core/snackticket-device-crypto": [
+        "packages/snackticket-device-crypto/src/index.ts"
+      ],
+      "@snackticket-core/snackticket-server-crypto": [
+        "packages/snackticket-server-crypto/src/index.ts"
+      ],
+      "@snackticket-core/test.test": ["packages/test.test/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
