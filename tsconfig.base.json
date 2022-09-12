@@ -21,6 +21,9 @@
       "@snackticket-core/snackticket-server-crypto": [
         "packages/snackticket-server-crypto/src/index.ts"
       ],
+      "@snackticket-core/snackticket-ui": [
+        "packages/snackticket-ui/src/index.ts"
+      ],
       "@snackticket-core/test.test": ["packages/test.test/src/index.ts"]
     }
   },
