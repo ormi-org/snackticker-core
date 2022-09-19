@@ -1,0 +1,3 @@
+export enum SchemaV1 {
+  SINGLE_TIER_TRANSACTION = "SINGLE_TIER_TRANSACTION"
+}

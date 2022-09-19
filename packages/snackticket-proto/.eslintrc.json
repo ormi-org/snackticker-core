@@ -4,21 +4,15 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {
-        "semi": "error"
-      }
+      "rules": {}
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "rules": {
-        "semi": "error"
-      }
+      "rules": {}
     },
     {
       "files": ["*.js", "*.jsx"],
-      "rules": {
-        "semi": "error"
-      }
+      "rules": {}
     }
   ]
 }

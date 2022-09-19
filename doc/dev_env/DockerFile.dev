@@ -1,0 +1,9 @@
+FROM node:18.9.0-bullseye-slim
+LABEL org.openrichmedia.containers.image.authors="thibaud.faurie@openrichmedia.org"
+LABEL org.openrichmedia.contaienrs.image.name="NodeJS 18.9.0 dev env"
+LABEL org.openrichmedia.contaienrs.image.id="openrichmedia.org/internal/node18dev:18.9.0-bullseye-slim"
+
+RUN apt update -y
+RUN apt install -y git default-jdk graphviz
+
+CMD ["tail", "-f", "/dev/null"]

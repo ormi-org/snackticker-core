@@ -1,0 +1,18 @@
+@startuml single-tier-transaction
+
+autonumber "<b>[0]"
+
+actor       User
+participant Device
+participant Server
+participant Wallet
+User -> Device : Apply for transaction
+Device -> Server : ProtocolHandshakeReq(\n\tpubKey: RSAPublicKey\n)
+activate Server
+Server -> Device : ProtocolHandshakeRes(\n\tpubKey: RSAPublicKey\n)
+deactivate Server
+Device -> Wallet : InitTxReq(\n\tttl: number\n\tdata: signed base64\n)
+activate Wallet
+Wallet -> Device : InitTxRes(\n\tstatus: code\n\t\n)
+deactivate Wallet
+@enduml
