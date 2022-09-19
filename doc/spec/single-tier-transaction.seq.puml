@@ -2,17 +2,48 @@
 
 autonumber "<b>[0]"
 
-actor       User
-participant Device
+actor       Receiver
+participant RDevice
+actor       Initiator
+participant IDevice
 participant Server
-participant Wallet
-User -> Device : Apply for transaction
-Device -> Server : ProtocolHandshakeReq(\n\tpubKey: RSAPublicKey\n)
+
+entity Session
+collections TransactionLog
+
+entity IWallet
+entity RWallet
+
+Initiator -> IDevice : Apply for transaction
+
+IDevice -> Server : ProtocolHandshakeReq(\n\tpubKey: RSAPublicKey\n\tversion: ?\n)
 activate Server
-Server -> Device : ProtocolHandshakeRes(\n\tpubKey: RSAPublicKey\n)
+Server -> Session : CreateTx(time + pubKey)
+alt session creation success
+  activate Session
+  Session --> Server : OK
+else session creation fail
+  Session --> Server : KO
+  Server -> IDevice : ProtocolHandshakeRes(\n\tstatus: ErrorCode\n\treason: string\n)
+end
+autonumber 6 "<b>[#]"
+Server -> IDevice : ProtocolHandshakeRes(\n\tstatus: code\n\t(opt) reason: string\n\tversion: ProtocolVersion\n)
 deactivate Server
-Device -> Wallet : InitTxReq(\n\tttl: number\n\tdata: signed base64\n)
-activate Wallet
-Wallet -> Device : InitTxRes(\n\tstatus: code\n\t\n)
-deactivate Wallet
+
+IDevice -> Server : InitTxReq(\n\tttl: number\n\tdata: signed base64\n)
+activate Server
+Server -> Server : Verify data signature
+alt valid signature
+  activate Server
+  Server -> Session : Populate
+else invalid signature
+  Server -> IDevice : InitTxRs(\n\tstatus: ErrorCode\n\treason: string\n)
+end
+deactivate Server
+autonumber 10 "<b>[#]"
+Server -> IDevice : InitTxRes(\n\tstatus: code\n\t(opt) reason: string\n)
+deactivate Server
+
+deactivate Session
+RDevice -> Receiver : Resolve transaction
 @enduml
