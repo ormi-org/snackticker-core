@@ -1,12 +1,14 @@
+import { RouterModule } from '@angular/router';
 import { moduleMetadata, Story, Meta } from '@storybook/angular';
 import { StartupComponent } from './startup.component';
+import { ViewModule } from '../view.module';
 
 export default {
   title: 'StartupComponent',
   component: StartupComponent,
   decorators: [
     moduleMetadata({
-      imports: [],
+      imports: [RouterModule, ViewModule],
     })
   ],
 } as Meta<StartupComponent>;
