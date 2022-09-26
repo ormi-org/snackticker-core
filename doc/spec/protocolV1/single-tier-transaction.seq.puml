@@ -1,4 +1,5 @@
 @startuml single-tier-transaction (basket checkout) (protocolV1)
+!pragma teoz true
 autonumber "<b>[0]"
 
 actor       Receiver
@@ -49,9 +50,8 @@ else invalid signature || invalid balance
   autonumber 13 "<b>[#]"
   Session --> Server : KO
   Server -> IDevice : InitTxRes(\n\tstatus: ErrorCode\n\treason: string\n)
+  deactivate Server
 end
-deactivate Server
-deactivate Server
 IDevice -> IDevice : Decrypt data with privKey
 activate IDevice
 IDevice -> Initiator : Display raw data as QR code
@@ -61,8 +61,17 @@ Receiver -> RDevice : Scan Transaction QR code
 RDevice -> Receiver : Display basket content
 RDevice -> Server : OpenChannel(SessionId)
 RDevice -> Server : HandoverTxReq(\n\tpubKey: RSAPubKey\n\ttxToken: signed base64\n)
-Server -> RDevice : 
+Server -> Server : Verify data signature with pubKey
+activate Server
+Server -> Session : ConfirmTx(txToken: base64)
+Session -> Server : OK
+Session -> TransactionLog : Write (End)
+Server -> RDevice : HandoverTxRes(\n\tstatus: code\n\t(opt) reason: string\n)
+deactivate Server
+Server -> IDevice : TxEndSignal(\n\tstatus: code\n\t(opt)reason: string\n)
+& Server -> RDevice : TxEndSignal(\n\tstatus: code\n\t(opt)reason: string\n)
 Session -> TransactionLog : Write (Timeout)
 deactivate Session
 RDevice -> Receiver : Resolve transaction feedback
+& IDevice -> Initiator : Resolve transaction feedback
 @enduml

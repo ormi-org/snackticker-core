@@ -1,12 +1,13 @@
 import { ProtocolVersion } from "../../../../protocol.interface";
-import { Message } from "../../../../schema/message/message";
+import { Message, ResponseBase } from "../../../../schema/message/message";
 
 type ProtocolHandshakeReqData = {
-  version: null
+  version: ProtocolVersion
   pubKey: string
+  schema: string
 }
 
-type ProtocolHandshakeResData = {
+interface ProtocolHandshakeResData extends ResponseBase {
   version: ProtocolVersion
 }
 

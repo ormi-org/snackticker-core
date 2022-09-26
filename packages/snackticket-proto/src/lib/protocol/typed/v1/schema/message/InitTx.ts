@@ -1,12 +1,13 @@
-import { Message } from "../../../../schema/message/message";
+import { Message, ResponseBase } from "../../../../schema/message/message";
 
 type InitTxReqData = {
-  ttl: number
+  from: string
+  to: string
   data: string
 }
 
-type InitTxResData = {
-  status: null
+interface InitTxResData extends ResponseBase {
+  txData?: string
 }
 
 export class InitTxReq extends Message<InitTxReqData> {}
