@@ -1,4 +1,4 @@
-import { Message, ResponseBase } from "../../../../schema/message/message";
+import { Message, ResponseBase } from "../../../typed/schema/message/message";
 
 type TxEndSignalData = ResponseBase
 

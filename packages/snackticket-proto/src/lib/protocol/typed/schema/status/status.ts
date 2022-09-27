@@ -35,4 +35,9 @@ enum ERROR {
 export type STATUS_CODE = {
   SUCCESS: SUCCESS,
   ERROR: ERROR
+}
+
+export const STATUS_CODE = {
+  SUCCESS: SUCCESS,
+  ERROR: ERROR
 };

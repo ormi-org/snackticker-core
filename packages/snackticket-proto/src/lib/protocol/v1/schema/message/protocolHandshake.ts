@@ -1,5 +1,5 @@
-import { ProtocolVersion } from "../../../../protocol.interface";
-import { Message, ResponseBase } from "../../../../schema/message/message";
+import { ProtocolVersion } from "../../../typed/protocol.interface";
+import { Message, ResponseBase } from "../../../typed/schema/message/message";
 
 type ProtocolHandshakeReqData = {
   version: ProtocolVersion

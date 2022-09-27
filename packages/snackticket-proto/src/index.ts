@@ -1,1 +1,1 @@
-export * from './lib/snackticket-proto';
+export * from './lib/snackticket-proto.module';
