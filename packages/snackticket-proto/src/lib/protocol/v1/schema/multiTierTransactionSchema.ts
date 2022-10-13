@@ -4,17 +4,16 @@ import { ProtocolV1 } from "../protocolV1";
 import * as V1Message from "./message/index.module";
 import { SchemaV1 } from "./schemaV1";
 
-export class SingleTierTransactionSchema implements ISchema<ProtocolV1> {
-  id = SchemaV1.SINGLE_TIER_TRANSACTION;
-  descriptor = "a single tier transaction between a human-controlled device and a virtual wallet(/pool)";
+export class MultiTierTransactionSchema implements ISchema<ProtocolV1> {
+  id = SchemaV1.MULTI_TIER_TRANSACTION;
+  descriptor = "a multi tier transaction between two human-controlled devices or between a HCD and a virtual wallet(/pool)";
   flow: Array<string> = [
     V1Message.ProtocolHandshakeReq.name,
     V1Message.ProtocolHandshakeRes.name,
     V1Message.InitTxReq.name,
     V1Message.InitTxRes.name,
-    V1Message.HandoverTxReq.name,
-    V1Message.HandoverTxRes.name,
-    V1Message.TxEndSignal.name,
+    V1Message.CommitTxReq.name,
+    V1Message.TxCommitEvent.name
   ];
 
   /**

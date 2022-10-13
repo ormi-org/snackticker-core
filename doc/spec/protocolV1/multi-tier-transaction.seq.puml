@@ -1,4 +1,4 @@
-@startuml single-tier-transaction (basket checkout) (protocolV1)
+@startuml multi-tier-transaction (basket checkout) (protocolV1)
 !pragma teoz true
 autonumber "<b>[0]"
 
@@ -33,9 +33,11 @@ else session creation fail
   Server -> IDevice : ProtocolHandshakeRes(\n\tstatus: ErrorCode\n\treason: string\n)
 end
 deactivate Server
-' Handshake end
 
-' Init Transaction from Initiator (sender) side
+' Make scan for pubKey QR
+Receiver --> Initiator : Show pubKey QR
+Initiator -> IDevice : Scan PubKey QR code
+' Init transaction
 IDevice -> Server : InitTxReq(\n\tfrom: RSAPublicKey\n\tto: RSAPublicKey\n\tdata: signed base64\n)
 activate Server
 Server -> Server : Verify data signature with pubKey
@@ -47,43 +49,26 @@ alt valid signature & valid balance
   RWallet --> Session : to(pubKey)
   Session -> Session : CheckBalance(from)
   Session --> Server : OK
-  Server -> IDevice : InitTxRes(\n\tstatus: code\n\t(opt) reason: string\n\ttxData[IPKencrypted base64](txData[RPKencrypted base64])\n)
+  Server -> IDevice : InitTxRes(\n\tstatus: code\n\t(opt) reason: string\n\ttxData[IPKencrypted base64](txData)\n)
 else invalid signature || invalid balance
   autonumber 13 "<b>[#]"
   Session --> Server : KO
   Server -> IDevice : InitTxRes(\n\tstatus: ErrorCode\n\treason: string\n)
   deactivate Server
 end
-' Init Transaction end
-
-' Decrypting data so it can be presented to admin for validation
 IDevice -> IDevice : Decrypt data with privKey
-activate IDevice
-' Physical transaction validation
-IDevice -> Initiator : Display raw data as QR code
-deactivate IDevice
-Initiator --> Receiver
-' Receiver (admin) scan QR to check basket content
-Receiver -> RDevice : Scan Transaction QR code
-RDevice -> Receiver : Display basket content
-' Receiver join session by opening channel
-RDevice -> Server : OpenChannel(SessionId)
-' Receiver handover transaction for validation
-RDevice -> Server : HandoverTxReq(\n\tpubKey: RSAPubKey\n\ttxToken: signed base64\n)
-Server -> Server : Verify data signature with pubKey
+IDevice -> Initiator : Display transaction summary
+Initiator -> IDevice : ValidateTransaction
+IDevice -> Server : CommitTxReq(\n\ttxToken: signed base64\n)
 activate Server
-' Transaction commit 
 Server -> Session : CommitTx(txToken: base64)
 Session -> Server : OK
-' Writing to txlog
 Session -> TransactionLog : Write (End)
-Server -> RDevice : HandoverTxRes(\n\tstatus: code\n\t(opt) reason: string\n)
 deactivate Server
-' End transaction for UX resolution
-Server -> IDevice : TxEndSignal(\n\tstatus: code\n\t(opt)reason: string\n)
-& Server -> RDevice : TxEndSignal(\n\tstatus: code\n\t(opt)reason: string\n)
 Session -> TransactionLog : Write (Timeout)
 deactivate Session
+Server -> IDevice : TxCommitEvent(\n\tdata: object\n)
+& Server -> RDevice : TxCommitEvent(\n\tdata: object\n)
 RDevice -> Receiver : Resolve transaction feedback
 & IDevice -> Initiator : Resolve transaction feedback
 ' END

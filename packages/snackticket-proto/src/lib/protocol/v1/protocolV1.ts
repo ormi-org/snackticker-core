@@ -12,4 +12,4 @@ export class ProtocolV1 implements IProtocol {
   );
 }
 
-export * as MessageV1Module from './schema/message/message.module';
+export * as MessageV1Module from './schema/message/index.module';
