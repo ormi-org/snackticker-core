@@ -6,6 +6,9 @@ import { AuthorSplashComponent } from './g-elements/author-splash/author-splash.
 import { LogoTextComponent } from './g-elements/logo-text/logo-text.component';
 import { LoadingBarComponent } from './components/loading-bar/loading-bar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { BurgerButtonComponent } from './components/navbar/burger-button/burger-button.component';
+import { QrcodeButtonComponent } from './components/navbar/qrcode-button/qrcode-button.component';
+import { BasketButtonComponent } from './components/navbar/basket-button/basket-button.component';
 
 @NgModule({
   imports: [CommonModule],
@@ -16,6 +19,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     LogoTextComponent,
     LoadingBarComponent,
     NavbarComponent,
+    BurgerButtonComponent,
+    QrcodeButtonComponent,
+    BasketButtonComponent,
   ],
   exports: [
     LogoTextComponent,
@@ -23,6 +29,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     LogoComponent,
     SplashScreenComponent,
     LoadingBarComponent,
+    BurgerButtonComponent,
+    QrcodeButtonComponent,
+    BasketButtonComponent,
   ],
 })
 export class SnackticketUiModule {}

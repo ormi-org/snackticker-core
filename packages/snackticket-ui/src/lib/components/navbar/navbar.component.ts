@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'snackticket-core-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.sass'],
 })
-export class NavbarComponent {
+export class NavbarComponent{
+
+    @Input() currentAmount = 0;
   
 }
