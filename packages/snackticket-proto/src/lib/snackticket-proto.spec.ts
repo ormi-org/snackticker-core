@@ -14,4 +14,14 @@ describe('snackticketProtoV1', () => {
     const tx = Transaction.withSchema<ProtocolV1>(new SingleTierTransactionSchema());
     expect(() => tx.tryForwardWith(new ProtocolHandshakeReq())).not.toThrow();
   });
+
+  describe('singleTierTransactionSchema', () => {
+    it('should complete in case message schema is compliant', () => {
+      const tx = Transaction.withSchema<ProtocolV1>(new SingleTierTransactionSchema());
+      expect(() => {
+        tx.tryForwardWith(new ProtocolHandshakeReq());
+      });
+    });
+  });
+
 });

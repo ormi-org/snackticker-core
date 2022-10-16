@@ -67,8 +67,8 @@ Session -> TransactionLog : Write (End)
 deactivate Server
 Session -> TransactionLog : Write (Timeout)
 deactivate Session
-Server -> IDevice : TxCommitEvent(\n\tdata: object\n)
-& Server -> RDevice : TxCommitEvent(\n\tdata: object\n)
+Server -> IDevice : TxCommitEvent(\n\ttxData: object\n)
+& Server -> RDevice : TxCommitEvent(\n\ttxData: object\n)
 RDevice -> Receiver : Resolve transaction feedback
 & IDevice -> Initiator : Resolve transaction feedback
 ' END

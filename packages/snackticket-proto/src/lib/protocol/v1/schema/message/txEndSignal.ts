@@ -1,5 +1,5 @@
-import { Message, ResponseBase } from "../../../typed/schema/message/message";
+import { Message, ResponseBase } from "@typed";
 
-type TxEndSignalData = ResponseBase
+export type TxEndSignalData = ResponseBase
 
 export class TxEndSignal extends Message<TxEndSignalData> {}

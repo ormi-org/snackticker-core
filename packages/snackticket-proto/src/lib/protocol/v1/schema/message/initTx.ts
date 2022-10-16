@@ -1,13 +1,13 @@
-import { Message, ResponseBase } from "../../../typed/schema/message/message";
+import { Message, ResponseBase } from "@typed";
 
-type InitTxReqData = {
+export type InitTxReqData = {
   from: string
   to: string
-  data: string
+  data: object
 }
 
-interface InitTxResData extends ResponseBase {
-  txData?: string
+export interface InitTxResData extends ResponseBase {
+  txData?: object
 }
 
 export class InitTxReq extends Message<InitTxReqData> {}

@@ -1,20 +1,24 @@
-import { IProtocol } from "../protocol/typed/protocol.interface";
-import { Message } from "../protocol/typed/schema/message/message";
-import { ISchema } from "../protocol/typed/schema/schema.interface";
-import { STATUS_CODE } from "../protocol/typed/schema/status/status";
+import { IProtocol } from "@typed";
+import { Message } from "@typed";
+import { ISchema } from "@typed";
+import { STATUS_CODE } from "@typed";
 
 export class Transaction<P extends IProtocol> {
-  private schema: ISchema<P> | undefined;
+  private schema: ISchema<P>;
   private step = 0;
   private currentMessage: Message<unknown> | undefined;
 
+  private constructor(schema: ISchema<P>) {
+    this.schema = schema;
+  }
+
   public static withSchema<P extends IProtocol>(schema: ISchema<P>): Transaction<P> {
-    const tx = new Transaction<P>();
+    const tx = new Transaction<P>(schema);
     tx.schema = schema;
     return tx;
   }
 
-  tryForwardWith(msg: Message<unknown>) {
+  tryForwardWith(msg: Message<unknown>): () => Message<unknown> {
     try {
       this.schema?.evaluate(this.step, msg);
     } catch(e) {
@@ -23,5 +27,6 @@ export class Transaction<P extends IProtocol> {
       this.currentMessage = msg;
       this.step++;
     }
+    return this.schema.getNextOf(msg);
   }
 }

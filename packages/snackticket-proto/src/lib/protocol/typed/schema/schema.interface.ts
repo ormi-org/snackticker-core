@@ -1,9 +1,11 @@
 import { Message } from "./message/message";
 
 export interface ISchema<IProtocol> {
-  id: string
-  descriptor: string
-  flow: Array<string>
+  /**
+   * @param   ofMessage the message type on which to query the next type of
+   * @returns next message type name
+   */
+  getNextOf(msg: Message<Record<string, unknown>>): (data: Record<string, unknown>) => Message<Record<string, unknown>>
   /**
    * evaluates if a message at specific step is compliant
    * 
@@ -11,5 +13,5 @@ export interface ISchema<IProtocol> {
    * @param m 
    * @throws {Error}
    */
-  evaluate(step: number, m: Message<unknown>): void
+  evaluate(step: number, m: Message<Record<string, unknown>>): void
 }

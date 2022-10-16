@@ -1,17 +1,18 @@
 import { STATUS_CODE } from "../status/status";
 import { IMessage } from "./message.interface";
 
-export type ResponseBase = {
+export interface ResponseBase extends Record<string, unknown> {
   status: STATUS_CODE
   reason?: string
 }
 
-export abstract class Message<T> implements IMessage<T> {
+export abstract class Message<T extends Record<string, unknown>> implements IMessage<T> {
   protected time!: number;
   protected data!: T;
 
-  constructor() {
+  constructor(data: T) {
     this.time = Date.now();
+    this.data = data;
   }
 
   getData(): T {

@@ -1,11 +1,11 @@
-import { Message, ResponseBase } from "../../../typed/schema/message/message";
+import { Message, ResponseBase } from "@typed";
 
-type HandoverTxReqData = {
+export type HandoverTxReqData = {
   pubKey: string
   txToken: string
 }
 
-type HandoverTxResData = ResponseBase
+export type HandoverTxResData = ResponseBase
 
 export class HandoverTxReq extends Message<HandoverTxReqData> {}
 export class HandoverTxRes extends Message<HandoverTxResData> {}

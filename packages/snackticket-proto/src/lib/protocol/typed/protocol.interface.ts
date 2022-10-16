@@ -5,6 +5,6 @@ export enum ProtocolVersion {
 }
 
 export interface IProtocol {
-  version: ProtocolVersion
-  schemas: Map<string, ISchema<this>>
+  readonly version: ProtocolVersion
+  readonly schemas: Map<string, ISchema<this>>
 }
