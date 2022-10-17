@@ -28,5 +28,13 @@
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
     }
   },
-  "defaultProject": "snackticket-device-client"
+  "defaultProject": "snackticket-device-client",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build-storybook"]
+      }
+    }
+  }
 }

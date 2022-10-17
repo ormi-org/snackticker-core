@@ -1,0 +1,19 @@
+@startuml crypto-flow
+
+(*) --> "Password"
+(*) --> "Seed sentence"
+"Password" -->[Protect] "Private key"
+
+"Private key" -->[Sign] "Data"
+"Private key" -->[Decrypt] "Data"
+
+"Public key" -->[Encrypt] "Data"
+"Public key" -->[Verify signature of] "Data"
+
+"Key pair" -->[Is composed of] "Private key"
+"Key pair" -->[Is composed of] "Public key"
+
+"Seed sentence" -->[Hashed to] "Seed hash"
+"Seed hash" -->[Is seed for] "Key pair"
+
+@enduml
