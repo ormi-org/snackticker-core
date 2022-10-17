@@ -1,6 +1,8 @@
+import { IProtocol } from "@typed";
 import { Message } from "./message";
 
-export interface ISchema<IProtocol> {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export interface ISchema<T extends IProtocol> {
   /**
    * Get next expected message factory immediately after passed message
    * 
