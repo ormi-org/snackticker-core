@@ -1,6 +1,6 @@
 import { ProtocolVersion } from "@typed";
-import { Message, ResponseBase } from "@typed";
-import { SchemaV1 } from "../schemaV1";
+import { Message, ResponseBase } from "@typed/schema/message";
+import { SchemaV1 } from "@v1/schema";
 
 export type ProtocolHandshakeReqData = {
   version: ProtocolVersion

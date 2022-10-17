@@ -1,4 +1,4 @@
-import { Message } from '@typed';
+import { Message } from '@typed/schema/message';
 import {
   CommitTxReq,
   CommitTxReqData,

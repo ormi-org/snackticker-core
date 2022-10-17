@@ -1,4 +1,4 @@
-import { Message, ResponseBase } from "@typed";
+import { Message, ResponseBase } from "@typed/schema/message";
 
 export type HandoverTxReqData = {
   pubKey: string

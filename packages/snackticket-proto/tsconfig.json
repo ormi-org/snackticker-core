@@ -10,7 +10,14 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "src",
     "paths": {
-      "@typed": ["lib/protocol/typed/index"],
+      "@typed": ["lib/protocol/typed"],
+      "@typed/schema": ["lib/protocol/typed/schema"],
+      "@typed/schema/status": ["lib/protocol/typed/schema/status"],
+      "@typed/schema/message": ["lib/protocol/typed/schema/message"],
+      "@transaction": ["lib/transaction"],
+      "@v1": ["lib/protocol/v1"],
+      "@v1/schema": ["lib/protocol/v1/schema"],
+      "@v1/schema/message": ["lib/protocol/v1/schema/message/index"],
     }
   },
   "files": [],

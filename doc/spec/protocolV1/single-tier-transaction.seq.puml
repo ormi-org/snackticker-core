@@ -72,7 +72,7 @@ RDevice -> Server : OpenChannel(SessionId)
 RDevice -> Server : HandoverTxReq(\n\tpubKey: RSAPubKey\n\ttxToken: signed base64\n)
 Server -> Server : Verify data signature with pubKey
 activate Server
-' Transaction commit 
+' Transaction commit
 Server -> Session : CommitTx(txToken: base64)
 Session -> Server : OK
 ' Writing to txlog

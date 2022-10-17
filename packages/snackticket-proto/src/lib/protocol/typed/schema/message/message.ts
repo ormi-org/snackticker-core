@@ -1,4 +1,4 @@
-import { STATUS_CODE } from "../status/status";
+import { STATUS_CODE } from "../status";
 import { IMessage } from "./message.interface";
 
 export interface ResponseBase extends Record<string, unknown> {

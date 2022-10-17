@@ -1,11 +1,13 @@
-import { Message } from "./message/message";
+import { Message } from "./message";
 
 export interface ISchema<IProtocol> {
   /**
+   * Get next expected message factory immediately after passed message
+   * 
    * @param   ofMessage the message type on which to query the next type of
-   * @returns next message type name
+   * @returns next message anonymous factory
    */
-  getNextOf(msg: Message<Record<string, unknown>>): (data: Record<string, unknown>) => Message<Record<string, unknown>>
+  getNextOf(msg: Message<Record<string, unknown>>): (data: Record<string, unknown>) => Message<Record<string, unknown>> | undefined
   /**
    * evaluates if a message at specific step is compliant
    * 
@@ -14,4 +16,10 @@ export interface ISchema<IProtocol> {
    * @throws {Error}
    */
   evaluate(step: number, m: Message<Record<string, unknown>>): void
+  /**
+   * Get flow for the current Schema
+   * 
+   * @returns the schema messages sequence
+   */
+  getFlow(): Array<[string, (data: Record<string, unknown>) => Message<Record<string, unknown>> | undefined]>
 }

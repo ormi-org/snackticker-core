@@ -6,6 +6,7 @@
     "dbaeumer.vscode-eslint",
     "prisma.prisma",
     "eamodio.gitlens",
-    "jebbs.plantuml"
+    "jebbs.plantuml",
+    "Orta.vscode-jest"
   ]
 }

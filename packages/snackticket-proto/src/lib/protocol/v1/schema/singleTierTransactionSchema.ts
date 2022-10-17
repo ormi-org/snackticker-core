@@ -1,4 +1,4 @@
-import { Message } from '@typed';
+import { Message } from '@typed/schema/message';
 import {
   HandoverTxReq,
   HandoverTxReqData,
@@ -24,21 +24,21 @@ export class SingleTierTransactionSchema extends ProtocolV1Schema {
   override flow = new Array<
     [
       string,
-      (data: Record<string, unknown>) => Message<Record<string, unknown>>
+      (data: Record<string, unknown>) => Message<Record<string, unknown>> | undefined
     ]
   >(
     [
       ProtocolHandshakeReq.name,
-      (data) => new ProtocolHandshakeReq(<ProtocolHandshakeReqData>data),
+      (data) => new ProtocolHandshakeRes(<ProtocolHandshakeResData>data),
     ],
     [
       ProtocolHandshakeRes.name,
-      (data) => new ProtocolHandshakeRes(<ProtocolHandshakeResData>data),
+      (data) => new InitTxReq(<InitTxReqData>data),
     ],
-    [InitTxReq.name, (data) => new InitTxReq(<InitTxReqData>data)],
-    [InitTxRes.name, (data) => new InitTxRes(<InitTxResData>data)],
-    [HandoverTxReq.name, (data) => new HandoverTxReq(<HandoverTxReqData>data)],
-    [HandoverTxRes.name, (data) => new HandoverTxRes(<HandoverTxResData>data)],
-    [TxEndSignal.name, (data) => new TxEndSignal(<TxEndSignalData>data)]
+    [InitTxReq.name, (data) => new InitTxRes(<InitTxResData>data)],
+    [InitTxRes.name, (data) => new HandoverTxReq(<HandoverTxReqData>data)],
+    [HandoverTxReq.name, (data) => new HandoverTxRes(<HandoverTxResData>data)],
+    [HandoverTxRes.name, (data) => new TxEndSignal(<TxEndSignalData>data)],
+    [TxEndSignal.name, () => undefined]
   );
 }
