@@ -7,5 +7,5 @@
     "composite": true,
     "declaration": true
   },
-  "include": ["jest.config.ts", "**/*.test.ts", "**/*.spec.ts", "**/*.d.ts"]
+  "include": ["jest.config.ts", "**/*.test.ts", "**/*.spec.ts", "**/*.d.ts", "**/*.ts"]
 }

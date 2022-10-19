@@ -6,6 +6,8 @@
     "dbaeumer.vscode-eslint",
     "prisma.prisma",
     "eamodio.gitlens",
+    "jebbs.plantuml",
+    "Orta.vscode-jest",
     "syler.sass-indented",
     "Angular.ng-template"
   ]

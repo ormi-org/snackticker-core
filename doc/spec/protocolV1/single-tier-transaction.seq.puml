@@ -1,0 +1,90 @@
+@startuml single-tier-transaction (basket checkout) (protocolV1)
+!pragma teoz true
+autonumber "<b>[0]"
+
+actor       Receiver
+participant RDevice
+actor       Initiator
+participant IDevice
+participant Server
+
+entity Session
+collections TransactionLog
+
+entity IWallet
+entity RWallet
+
+' START
+Initiator -> IDevice : Apply for transaction
+' Handshake step
+IDevice -> Server : ProtocolHandshakeReq(\n\tpubKey: RSAPublicKey\n\tversion: ?\n\tschema: schemaId\n)
+activate Server
+' Create Transaction
+Server -> Session : CreateTx(time + pubKey)
+note right: TTL of the Transaction\nin the session\nis 600 seconds
+alt session creation success
+  activate Session
+  Session -> TransactionLog : Write (Creation)
+  Session --> Server : OK
+  Server -> IDevice : ProtocolHandshakeRes(\n\tstatus: code\n\t(opt) reason: string\n\tversion: ProtocolVersion\n\tschema: schemaId\n)
+else session creation fail
+  autonumber 5 "<b>[#]"
+  Session --> Server : KO
+  Server -> IDevice : ProtocolHandshakeRes(\n\tstatus: ErrorCode\n\treason: string\n)
+end
+deactivate Server
+' Handshake end
+
+' Init Transaction from Initiator (sender) side
+IDevice -> Server : InitTxReq(\n\tfrom: RSAPublicKey\n\tto: RSAPublicKey\n\tdata: signed base64\n)
+activate Server
+Server -> Server : Verify data signature with pubKey
+activate Server
+alt valid signature & valid balance
+  Server -> Session : Populate
+  deactivate Server
+  IWallet --> Session : from(pubKey)
+  RWallet --> Session : to(pubKey)
+  Session -> Session : CheckBalance(from)
+  Session --> Server : OK
+  Server -> IDevice : InitTxRes(\n\tstatus: code\n\t(opt) reason: string\n\ttxData[IPKencrypted base64](txData[RPKencrypted base64])\n)
+else invalid signature || invalid balance
+  autonumber 13 "<b>[#]"
+  Session --> Server : KO
+  Server -> IDevice : InitTxRes(\n\tstatus: ErrorCode\n\treason: string\n)
+  deactivate Server
+end
+' Init Transaction end
+
+' Decrypting data so it can be presented to admin for validation
+IDevice -> IDevice : Decrypt data with privKey
+activate IDevice
+' Physical transaction validation
+IDevice -> Initiator : Display raw data as QR code
+deactivate IDevice
+Initiator --> Receiver
+' Receiver (admin) scan QR to check basket content
+Receiver -> RDevice : Scan Transaction QR code
+RDevice -> Receiver : Display basket content
+' Receiver join session by opening channel
+RDevice -> Server : OpenChannel(SessionId)
+' Receiver handover transaction for validation
+RDevice -> Server : HandoverTxReq(\n\tpubKey: RSAPubKey\n\ttxToken: signed base64\n)
+Server -> Server : Verify data signature with pubKey
+activate Server
+' Transaction commit
+Server -> Session : CommitTx(txToken: base64)
+Session -> Server : OK
+' Writing to txlog
+Session -> TransactionLog : Write (End)
+Server -> RDevice : HandoverTxRes(\n\tstatus: code\n\t(opt) reason: string\n)
+deactivate Server
+' End transaction for UX resolution
+Server -> IDevice : TxEndSignal(\n\tstatus: code\n\t(opt)reason: string\n)
+& Server -> RDevice : TxEndSignal(\n\tstatus: code\n\t(opt)reason: string\n)
+Session -> TransactionLog : Write (Timeout)
+deactivate Session
+RDevice -> Receiver : Resolve transaction feedback
+& IDevice -> Initiator : Resolve transaction feedback
+' END
+@enduml
