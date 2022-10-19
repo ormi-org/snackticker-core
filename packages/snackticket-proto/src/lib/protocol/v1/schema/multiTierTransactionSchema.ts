@@ -7,7 +7,6 @@ import {
   InitTxRes,
   InitTxResData,
   ProtocolHandshakeReq,
-  ProtocolHandshakeReqData,
   ProtocolHandshakeRes,
   ProtocolHandshakeResData,
   TxCommitEvent,
@@ -22,20 +21,20 @@ export class MultiTierTransactionSchema extends ProtocolV1Schema {
   override flow = new Array<
     [
       string,
-      (data: Record<string, unknown>) => Message<Record<string, unknown>>
+      (data: Record<string, unknown>) => Message<Record<string, unknown>> | undefined
     ]
   >(
     [
       ProtocolHandshakeReq.name,
-      (data) => new ProtocolHandshakeReq(<ProtocolHandshakeReqData>data),
+      (data) => new ProtocolHandshakeRes(<ProtocolHandshakeResData>data),
     ],
     [
       ProtocolHandshakeRes.name,
-      (data) => new ProtocolHandshakeRes(<ProtocolHandshakeResData>data),
+      (data) => new InitTxReq(<InitTxReqData>data),
     ],
-    [InitTxReq.name, (data) => new InitTxReq(<InitTxReqData>data)],
-    [InitTxRes.name, (data) => new InitTxRes(<InitTxResData>data)],
-    [CommitTxReq.name, (data) => new CommitTxReq(<CommitTxReqData>data)],
-    [TxCommitEvent.name, (data) => new TxCommitEvent(<TxCommitEventData>data)]
+    [InitTxReq.name, (data) => new InitTxRes(<InitTxResData>data)],
+    [InitTxRes.name, (data) => new CommitTxReq(<CommitTxReqData>data)],
+    [CommitTxReq.name, (data) => new TxCommitEvent(<TxCommitEventData>data)],
+    [TxCommitEvent.name, () => undefined]
   );
 }

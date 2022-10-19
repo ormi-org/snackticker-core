@@ -26,6 +26,9 @@ export abstract class ProtocolV1Schema implements ISchema<ProtocolV1> {
   }
 
   evaluate(step: number, msg: Message<Record<string, unknown>>): void {
+    if (typeof msg === 'undefined') {
+      throw new Error(`expected ${this.flow[step][0]}; got End Of Transaction`);
+    }
     if (msg.constructor.name !== this.flow[step][0])
       throw new Error(`expected ${this.flow[step][0]}`);
     return;

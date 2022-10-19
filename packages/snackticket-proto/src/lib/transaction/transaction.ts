@@ -29,7 +29,7 @@ export class Transaction<P extends IProtocol> {
       throw new Error(
         `${STATUS_CODE.ERROR.INVALID_SCHEMA}: could not forward ${
           this.currentMessage?.constructor.name
-        } with ${msg.constructor.name}; ${e instanceof Error ? e.message : e}`
+        } with ${msg?.constructor.name}; ${e instanceof Error ? e.message : e}`
       );
     } finally {
       this.currentMessage = msg;

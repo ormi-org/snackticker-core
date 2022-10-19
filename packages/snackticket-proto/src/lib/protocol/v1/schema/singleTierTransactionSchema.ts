@@ -9,7 +9,6 @@ import {
   InitTxRes,
   InitTxResData,
   ProtocolHandshakeReq,
-  ProtocolHandshakeReqData,
   ProtocolHandshakeRes,
   ProtocolHandshakeResData,
   TxEndSignal,
