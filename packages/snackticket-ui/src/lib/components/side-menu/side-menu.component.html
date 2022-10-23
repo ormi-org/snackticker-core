@@ -1,0 +1,23 @@
+<div class="side-menu">
+    <div>
+        <div class="header-menu">
+            <span class="header-menu-text">Menu</span>
+        </div>
+        <div class="info-event">
+            <div class="info-event-name">
+                <span class="event-name">{{eventName}}</span>
+            </div>
+            <div class="info-event-location-hour">
+                <span class="event-location">{{eventLocation}} - </span><span class="event-hour">{{eventHour}}</span>
+            </div>
+        </div>
+        <div class="item-menu-list">
+            <snackticket-core-side-menu-item *ngFor="let item of menuItems" [item]="item"></snackticket-core-side-menu-item>
+        </div>
+    </div>
+    <div class="logo-area">
+        <snackticket-core-logo-text [width]="127"></snackticket-core-logo-text>
+        <snackticket-core-author-splash [width]="88" class="author-icon"></snackticket-core-author-splash>
+    </div>
+</div>
+
