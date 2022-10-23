@@ -6,9 +6,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./side-menu-item.component.sass'],
 })
 export class SideMenuItemComponent {
-  
   @Input() isActive = false;
-  @Input() item: {isActive: boolean, name: string, icon:string, route:string} | undefined;
-  @Input() route = "";
-
+  @Input() item:
+    | { isActive: boolean; name: string; icon: string; route: string }
+    | undefined;
+  @Input() route = '';
 }
