@@ -21,8 +21,8 @@ const Template: Story<NavbarComponent> = (args: NavbarComponent) => ({
 });
 
 
-export const AmountFive = Template.bind({});
-AmountFive.args = {
+export const Amount5 = Template.bind({});
+Amount5.args = {
   currentAmount: 5
 }
 

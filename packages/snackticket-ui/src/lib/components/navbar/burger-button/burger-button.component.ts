@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './burger-button.component.html',
   styleUrls: ['./burger-button.component.sass'],
 })
-export class BurgerButtonComponent {
-  
-}
+export class BurgerButtonComponent {}

@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './basket-button.component.html',
   styleUrls: ['./basket-button.component.sass'],
 })
-export class BasketButtonComponent {
-  
-}
+export class BasketButtonComponent {}

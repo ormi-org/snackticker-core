@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './qrcode-button.component.html',
   styleUrls: ['./qrcode-button.component.sass'],
 })
-export class QrcodeButtonComponent {
-  
-}
+export class QrcodeButtonComponent {}

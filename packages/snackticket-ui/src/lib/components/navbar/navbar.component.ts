@@ -5,8 +5,6 @@ import { Component, Input } from '@angular/core';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.sass'],
 })
-export class NavbarComponent{
-
-    @Input() currentAmount = 0;
-  
+export class NavbarComponent {
+  @Input() currentAmount = 0;
 }
