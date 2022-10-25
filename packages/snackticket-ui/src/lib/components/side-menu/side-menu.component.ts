@@ -14,7 +14,7 @@ const MENU_ITEMS: Array<{
 })
 export class SideMenuComponent {
   menuItems = MENU_ITEMS;
-  
+
   eventName = '';
   eventLocation = '';
   eventHour = '';
