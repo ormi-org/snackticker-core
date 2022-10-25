@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@ormi/snackticket/proto": ["packages/snackticket-proto/src/index.ts"],
       "@snackticket-core/snackticket-device-crypto": [
         "packages/snackticket-device-crypto/src/index.ts"
       ],

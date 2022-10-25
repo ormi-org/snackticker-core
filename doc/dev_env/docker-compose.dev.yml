@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  n18_9_0:
+    image: node:18.9.0-bullseye-slim
+    command: tail -f /dev/null
+    volumes:
+      - node18.9.0_projects:/root/projects
+      - /home/tfa1/.ssh/id_rsa:/root/.ssh/id_rsa:ro
+    networks:
+      - mysql_mysql
+    
+volumes:
+  node17.6.0_projects:
+  node18.9.0_projects:
+networks:
+   mysql_mysql:
+     external: true #Need a running mysql stack
+
+# Install PlantUML

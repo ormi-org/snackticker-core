@@ -5,10 +5,8 @@ import { SplashScreenComponent } from './splash-screen/splash-screen.component';
 import { AuthorSplashComponent } from './g-elements/author-splash/author-splash.component';
 import { LogoTextComponent } from './g-elements/logo-text/logo-text.component';
 import { LoadingBarComponent } from './components/loading-bar/loading-bar.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { BurgerButtonComponent } from './components/navbar/burger-button/burger-button.component';
-import { QrcodeButtonComponent } from './components/navbar/qrcode-button/qrcode-button.component';
-import { BasketButtonComponent } from './components/navbar/basket-button/basket-button.component';
+import { SideMenuComponent } from './components/side-menu/side-menu.component';
+import { SideMenuItemComponent } from './components/side-menu/side-menu-item/side-menu-item.component';
 
 @NgModule({
   imports: [CommonModule],
@@ -18,10 +16,8 @@ import { BasketButtonComponent } from './components/navbar/basket-button/basket-
     AuthorSplashComponent,
     LogoTextComponent,
     LoadingBarComponent,
-    NavbarComponent,
-    BurgerButtonComponent,
-    QrcodeButtonComponent,
-    BasketButtonComponent,
+    SideMenuComponent,
+    SideMenuItemComponent,
   ],
   exports: [
     LogoTextComponent,
@@ -29,9 +25,8 @@ import { BasketButtonComponent } from './components/navbar/basket-button/basket-
     LogoComponent,
     SplashScreenComponent,
     LoadingBarComponent,
-    BurgerButtonComponent,
-    QrcodeButtonComponent,
-    BasketButtonComponent,
+    SideMenuComponent,
+    SideMenuItemComponent,
   ],
 })
 export class SnackticketUiModule {}

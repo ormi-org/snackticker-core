@@ -1,0 +1,75 @@
+@startuml multi-tier-transaction (basket checkout) (protocolV1)
+!pragma teoz true
+autonumber "<b>[0]"
+
+actor       Receiver
+participant RDevice
+actor       Initiator
+participant IDevice
+participant Server
+
+entity Session
+collections TransactionLog
+
+entity IWallet
+entity RWallet
+
+' START
+Initiator -> IDevice : Apply for transaction
+' Handshake step
+IDevice -> Server : ProtocolHandshakeReq(\n\tpubKey: RSAPublicKey\n\tversion: ?\n\tschema: schemaId\n)
+activate Server
+' Create Transaction
+Server -> Session : CreateTx(time + pubKey)
+note right: TTL of the Transaction\nin the session\nis 600 seconds
+alt session creation success
+  activate Session
+  Session -> TransactionLog : Write (Creation)
+  Session --> Server : OK
+  Server -> IDevice : ProtocolHandshakeRes(\n\tstatus: code\n\t(opt) reason: string\n\tversion: ProtocolVersion\n\tschema: schemaId\n)
+else session creation fail
+  autonumber 5 "<b>[#]"
+  Session --> Server : KO
+  Server -> IDevice : ProtocolHandshakeRes(\n\tstatus: ErrorCode\n\treason: string\n)
+end
+deactivate Server
+
+' Make scan for pubKey QR
+Receiver --> Initiator : Show pubKey QR
+Initiator -> IDevice : Scan PubKey QR code
+' Init transaction
+IDevice -> Server : InitTxReq(\n\tfrom: RSAPublicKey\n\tto: RSAPublicKey\n\tdata: signed base64\n)
+activate Server
+Server -> Server : Verify data signature with pubKey
+activate Server
+alt valid signature & valid balance
+  Server -> Session : Populate
+  deactivate Server
+  IWallet --> Session : from(pubKey)
+  RWallet --> Session : to(pubKey)
+  Session -> Session : CheckBalance(from)
+  Session --> Server : OK
+  Server -> IDevice : InitTxRes(\n\tstatus: code\n\t(opt) reason: string\n\ttxData[IPKencrypted base64](txData)\n)
+else invalid signature || invalid balance
+  autonumber 13 "<b>[#]"
+  Session --> Server : KO
+  Server -> IDevice : InitTxRes(\n\tstatus: ErrorCode\n\treason: string\n)
+  deactivate Server
+end
+IDevice -> IDevice : Decrypt data with privKey
+IDevice -> Initiator : Display transaction summary
+Initiator -> IDevice : ValidateTransaction
+IDevice -> Server : CommitTxReq(\n\ttxToken: signed base64\n)
+activate Server
+Server -> Session : CommitTx(txToken: base64)
+Session -> Server : OK
+Session -> TransactionLog : Write (End)
+deactivate Server
+Session -> TransactionLog : Write (Timeout)
+deactivate Session
+Server -> IDevice : TxCommitEvent(\n\ttxData: object\n)
+& Server -> RDevice : TxCommitEvent(\n\ttxData: object\n)
+RDevice -> Receiver : Resolve transaction feedback
+& IDevice -> Initiator : Resolve transaction feedback
+' END
+@enduml
