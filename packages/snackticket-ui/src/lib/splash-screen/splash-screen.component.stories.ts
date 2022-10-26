@@ -24,4 +24,4 @@ const Template: Story<SplashScreenComponent> = (args: SplashScreenComponent) => 
 
 export const SplashScreen = Template.bind({});
 SplashScreen.args = {
-}
+};

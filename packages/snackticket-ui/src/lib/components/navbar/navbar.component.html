@@ -1,8 +1,11 @@
 <div class="navbar">
-    <snackticket-core-burger-button></snackticket-core-burger-button>
-    <div class="wallet-area">
-        <span class="current-amount">{{currentAmount}}€</span>
-        <snackticket-core-qrcode-button></snackticket-core-qrcode-button>
-    </div>
-    <snackticket-core-basket-button></snackticket-core-basket-button>
+  <snackticket-core-side-menu></snackticket-core-side-menu>
+  <snackticket-core-burger-button
+    (click)="toggleSideMenu()"
+  ></snackticket-core-burger-button>
+  <div class="wallet-area">
+    <span class="current-amount">{{ currentAmount }}€</span>
+    <snackticket-core-qrcode-button></snackticket-core-qrcode-button>
+  </div>
+  <snackticket-core-basket-button></snackticket-core-basket-button>
 </div>

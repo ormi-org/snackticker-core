@@ -5,5 +5,5 @@ describe('snackticket-device-client', () => {
   });
   it('should render the splash screen', () => {
     cy.get('snackticket-core-startup').get('snackticket-core-splash-screen').should('exist');
-  })
+  });
 });

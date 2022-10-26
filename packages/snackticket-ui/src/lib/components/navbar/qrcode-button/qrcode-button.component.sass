@@ -1,3 +1,22 @@
+@import ../../../_variables
+@keyframes ripple
+    50%
+        background-color: $primary
+        transform: scale(2)
+        opacity: 0
+    100%
+        background-color: #D5ECFF
+
+span.ripple
+    position: absolute
+    border-radius: 50%
+    transform: scale(0)
+    animation: ripple 1200ms linear
+    background-color: rgba(255, 255, 255, 0.7)
+
+.qr-code-button:focus
+    animation: ripple 300ms linear
+
 .qr-code-button
     display: flex
     align-items: center

@@ -17,7 +17,7 @@ const SPLASH_SCREEN_LOADING_SENTENCES = [
   'Emballage des friandises',
   'Refroidissement des boissons',
   'Service du café'
-]
+];
 
 @Component({
   selector: 'snackticket-core-splash-screen',
@@ -32,8 +32,8 @@ export class SplashScreenComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     timer(0, 2000)
     .subscribe(() => {
-      console.log("text")
-      this.randomText.nativeElement.textContent = SPLASH_SCREEN_LOADING_SENTENCES[Math.floor(Math.random() * SPLASH_SCREEN_LOADING_SENTENCES.length)]
+      console.log("text");
+      this.randomText.nativeElement.textContent = SPLASH_SCREEN_LOADING_SENTENCES[Math.floor(Math.random() * SPLASH_SCREEN_LOADING_SENTENCES.length)];
     });
   } 
 }

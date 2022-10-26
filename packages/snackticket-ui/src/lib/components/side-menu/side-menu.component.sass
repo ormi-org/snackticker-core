@@ -1,5 +1,13 @@
 @import ../../_variables.sass
 @import ../../_imports.sass
+:host
+    transition: transform 0.5s
+    position: absolute
+    top: 0
+    z-index: 1
+:host(.hidden)
+    transition: transform 0.5s
+    transform: translateX(-100%)
 .side-menu
     width: 257px
     height: 100vh
@@ -13,13 +21,16 @@
         height: 87px
         background-color: $primary-text
         align-items: center
-        justify-content: start
+        justify-content: space-between
         .header-menu-text
             padding-left: 21px
             font-family: Rubik
             color: $light-text
             font-size: 26px
             font-style: normal
+        .closeBtn
+            margin-right: 21px
+            background: none
     .info-event
         display: flex
         flex-direction: column

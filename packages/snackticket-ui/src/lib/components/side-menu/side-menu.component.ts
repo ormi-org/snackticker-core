@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 const MENU_ITEMS: Array<{
   isActive: boolean;
@@ -14,8 +14,12 @@ const MENU_ITEMS: Array<{
 })
 export class SideMenuComponent {
   menuItems = MENU_ITEMS;
-
+  @HostBinding('class.hidden') isHidden = true;
   eventName = '';
   eventLocation = '';
   eventHour = '';
+
+  toggleVisibility() {
+    this.isHidden = !this.isHidden;
+  }
 }
