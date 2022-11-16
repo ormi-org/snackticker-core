@@ -148,7 +148,7 @@ model Event {
   id           String         @id @unique @default(uuid())
   name         String
   start        DateTime
-  End          DateTime
+  end          DateTime
   place        String
   Event_Ticket Event_Ticket[]
 }

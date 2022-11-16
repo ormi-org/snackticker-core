@@ -1,0 +1,37 @@
+@startuml retrieve-event
+
+participant "CLIENT" as C
+participant "SERVER" as S
+participant "EventService" as Service
+
+title //retrieve-event// graphql workflow
+
+activate C
+C -> S: **POST** ""/events""
+rnote left C
+graphql query
+  eventId<font color="red">*</font> //<string>//
+end note
+
+activate S
+S -> Service: **fnc** //getEventById(eventId)//
+
+activate Service
+Service -> S: event OR err
+deactivate Service
+
+alt success request
+S -> C: ""**200** OK""
+rnote right C
+**payload**
+  code<font color="red">*</font> //<int>//
+  data<font color="red">*</font> //<object>// {
+    event: <font color="red">*</font> //<event>//
+  }
+end note
+end
+' else failure request
+' S -> C: ""****""
+
+
+@enduml
