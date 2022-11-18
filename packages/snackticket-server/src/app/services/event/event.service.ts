@@ -4,20 +4,20 @@ import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class EventService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   getEventById(event: Prisma.EventWhereUniqueInput): Promise<Event | null> {
     return this.prisma.event.findUnique({
-      where: event
+      where: event,
     });
   }
 
   getEvents(params: {
-    skip?: number,
-    take?: number,
-    cursor?: Prisma.EventWhereUniqueInput,
-    where?: Prisma.EventWhereInput,
-    orderBy?: Prisma.EventOrderByWithRelationInput
+    skip?: number;
+    take?: number;
+    cursor?: Prisma.EventWhereUniqueInput;
+    where?: Prisma.EventWhereInput;
+    orderBy?: Prisma.EventOrderByWithRelationInput;
   }): Promise<Event[]> {
     const { skip, take, cursor, where, orderBy } = params;
     return this.prisma.event.findMany({
@@ -25,30 +25,41 @@ export class EventService {
       take,
       cursor,
       where,
-      orderBy
+      orderBy,
     });
   }
 
   createEvent(data: Prisma.EventCreateInput): Promise<Event> {
     return this.prisma.event.create({
-      data
+      data,
     });
   }
 
   updateEvent(params: {
-    where: Prisma.EventWhereUniqueInput,
-    data: Prisma.EventUpdateInput
+    where: Prisma.EventWhereUniqueInput;
+    data: Prisma.EventUpdateInput;
   }): Promise<Event> {
     const { where, data } = params;
     return this.prisma.event.update({
       data,
-      where
+      where,
     });
   }
 
-  deleteEvent(where: Prisma.EventWhereUniqueInput): Promise<Event> {
-    return this.prisma.event.delete({
-      where
-    });
+  deleteEvent(
+    where: Prisma.EventWhereUniqueInput
+  ): Promise<{ deleted: true } | { deleted: false, message: string }> {
+    return this.prisma.event
+      .delete({
+        where,
+      })
+      .then(
+        () => {
+          return { deleted: true };
+        },
+        (err) => {
+          return { deleted: false, message: err.message };
+        }
+      );
   }
 }
