@@ -19,6 +19,7 @@ const ENV = process.env['ENV'];
       debug: true,
       playground: true,
       include: [EventModule],
+      path: '/api/graphql'
     }),
     EventModule
   ],

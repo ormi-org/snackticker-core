@@ -23,17 +23,17 @@ class UniqueEventFetchingInput {
 
 @InputType()
 class EventOrderByWithRelationInput {
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   id?: Prisma.SortOrder;
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   name?: Prisma.SortOrder;
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   start?: Prisma.SortOrder;
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   end?: Prisma.SortOrder;
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   place?: Prisma.SortOrder;
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   Event_Ticket?: Prisma.Event_TicketOrderByRelationAggregateInput;
 }
 
@@ -52,10 +52,10 @@ export class EventResolver {
     skip: number,
     @Args('take', { type: () => Number })
     take: number,
-    @Args('cursor', { type: () => UniqueEventFetchingInput })
-    cursor: UniqueEventFetchingInput,
     @Args('orderBy', { type: () => EventOrderByWithRelationInput })
-    orderBy: EventOrderByWithRelationInput
+    orderBy: EventOrderByWithRelationInput,
+    @Args('cursor', { type: () => UniqueEventFetchingInput, nullable: true })
+    cursor?: UniqueEventFetchingInput
   ) {
     return this.eventService.getEvents({
       skip,
@@ -67,14 +67,14 @@ export class EventResolver {
 
   @Query(() => [Event])
   activeEvents(
-    @Args('take', { type: () => Number })
+    @Args('skip', { type: () => Number })
     skip: number,
     @Args('take', { type: () => Number })
     take: number,
-    @Args('cursor', { type: () => UniqueEventFetchingInput })
-    cursor: UniqueEventFetchingInput,
     @Args('orderBy', { type: () => EventOrderByWithRelationInput })
-    orderBy: EventOrderByWithRelationInput
+    orderBy: EventOrderByWithRelationInput,
+    @Args('cursor', { type: () => UniqueEventFetchingInput, nullable: true })
+    cursor?: UniqueEventFetchingInput
   ) {
     return this.eventService.getEvents({
       skip,
