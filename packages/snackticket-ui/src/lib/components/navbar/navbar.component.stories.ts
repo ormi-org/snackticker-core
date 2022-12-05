@@ -8,6 +8,7 @@ import { SideMenuComponent } from '../side-menu/side-menu.component';
 import { SideMenuItemComponent } from '../side-menu/side-menu-item/side-menu-item.component';
 import { LogoTextComponent } from '../../g-elements/logo-text/logo-text.component';
 import { AuthorSplashComponent } from '../../g-elements/author-splash/author-splash.component';
+import { ButtonComponent } from '../button/button.component';
 
 export default {
   title: 'NavbarComponent',
@@ -22,6 +23,7 @@ export default {
         LogoTextComponent,
         AuthorSplashComponent,
         SideMenuItemComponent,
+        ButtonComponent,
       ],
       imports: [CommonModule],
     }),

@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'snackticket-core-qrcode-button',
@@ -6,9 +6,5 @@ import { Component, HostBinding } from '@angular/core';
   styleUrls: ['./qrcode-button.component.sass'],
 })
 export class QrcodeButtonComponent {
-  @HostBinding('class.clicked') isClicked = false;
-
-  toggleFeedback() {
-    this.isClicked = !this.isClicked;
-  }
+ 
 }

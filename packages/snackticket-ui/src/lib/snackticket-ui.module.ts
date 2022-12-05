@@ -11,6 +11,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { QrcodeButtonComponent } from './components/navbar/qrcode-button/qrcode-button.component';
 import { BasketButtonComponent } from './components/navbar/basket-button/basket-button.component';
 import { BurgerButtonComponent } from './components/navbar/burger-button/burger-button.component';
+import { ButtonComponent } from './components/button/button.component';
 
 @NgModule({
   imports: [CommonModule],
@@ -26,6 +27,7 @@ import { BurgerButtonComponent } from './components/navbar/burger-button/burger-
     BasketButtonComponent,
     BurgerButtonComponent,
     NavbarComponent,
+    ButtonComponent,
   ],
   exports: [
     LogoTextComponent,
@@ -39,6 +41,7 @@ import { BurgerButtonComponent } from './components/navbar/burger-button/burger-
     BasketButtonComponent,
     BurgerButtonComponent,
     NavbarComponent,
+    ButtonComponent,
   ],
 })
 export class SnackticketUiModule {}
