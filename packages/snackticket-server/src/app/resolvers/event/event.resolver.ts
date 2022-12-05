@@ -1,10 +1,11 @@
-import { Args, Resolver, Query, Mutation, InputType, Field } from '@nestjs/graphql';
+import { Args, Resolver, Query, Mutation, InputType, Field, ObjectType, GraphQLISODateTime } from '@nestjs/graphql';
 import { Event } from '@models/gql/event';
 import { EventService } from '@services/event/event.service';
 import { Prisma } from '@prisma/client';
+import { GraphQLError } from 'graphql';
 
 @InputType()
-class CreateEventInput extends Event {
+class EventDTO extends Event {
   @Field()
   declare name: string;
   @Field()
@@ -12,6 +13,18 @@ class CreateEventInput extends Event {
   @Field()
   declare end: Date;
   @Field()
+  declare place: string;
+}
+
+@InputType()
+class UpdateEventInput extends Event {
+  @Field({ nullable: true })
+  declare name: string;
+  @Field({ nullable: true })
+  declare start: Date;
+  @Field({ nullable: true })
+  declare end: Date;
+  @Field({ nullable: true })
   declare place: string;
 }
 
@@ -99,7 +112,33 @@ export class EventResolver {
   }
 
   @Mutation(() => Event)
-  createEvent(@Args('event', { type: () => CreateEventInput }) event: Prisma.EventCreateInput) {
+  createEvent(@Args('event', { type: () => EventDTO }) event: Prisma.EventCreateInput) {
     return this.eventService.createEvent(event);
+  }
+
+  @Mutation(() => Event)
+  updateEvent(@Args('id', { type: () => String }) id: string, @Args('event', { type: () => UpdateEventInput }) event: Prisma.EventUpdateInput ) {
+    return this.eventService.updateEvent({ where: {id: id}, data: event});
+  }
+
+  @Mutation(() => Event)
+  deleteEvent(@Args('id', { type: () => String }) id: string) {
+    // Check first if running (active)
+    return this.eventService.getEvents({
+      where: { id: id }
+    }).then((events) => {
+      if (events.length == 0) {
+        throw new GraphQLError('Unkown event with specified id');
+      }
+      const ev = events[0];
+      const now = Date.now();
+      if (now >= ev.start.getDate() && now <= ev.end.getDate()) {
+        // case active
+        throw new GraphQLError('DELETE operation is not permitted on an active target event');
+      }
+      // case not running yet OR passed
+      return this.eventService.deleteEvent({ id: id })
+      .then(() => ev);
+    });
   }
 }
