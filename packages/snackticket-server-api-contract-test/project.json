@@ -1,0 +1,26 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/snackticket-server-api-contract-test/src",
+  "projectType": "application",
+  "targets": {
+    "all": {
+      "executor": "nx:run-command",
+      "commands": []
+    },
+    "graphql-event": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npx ts-node prisma-seeds/reset.ts",
+          "npx nx serve snackticket-server &",
+          "sleep 5 && npx ts-node prisma-seeds/event.seeding.ts",
+          "npx ts-node event.spec.ts",
+          "npx ts-node prisma-seeds/reset.ts"
+        ],
+        "cwd": "packages/snackticket-server-api-contract-test/src/specs/graphql",
+        "parallel": false
+      }
+    }
+  },
+  "tags": []
+}

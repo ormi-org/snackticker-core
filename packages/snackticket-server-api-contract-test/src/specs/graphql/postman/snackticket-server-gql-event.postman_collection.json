@@ -1,0 +1,244 @@
+{
+	"info": {
+		"_postman_id": "b8644c89-6934-452a-85b7-b50530f4b9ff",
+		"name": "snackticket-server-gql-event",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24745249"
+	},
+	"item": [
+		{
+			"name": "CreateEvent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status test', function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test('Response body is equals to expected', function() {\r",
+							"    const body = pm.response.json();\r",
+							"    const data = body.data.createEvent;\r",
+							"    pm.expect(data.name).to.eq('a test event');\r",
+							"    pm.expect(data.start).to.eq('2022-12-02T20:30:00.000Z');\r",
+							"    pm.expect(data.end).to.eq('2022-12-02T23:00:00.000Z');\r",
+							"    pm.expect(data.place).to.eq('a test place');\r",
+							"    postman.setEnvironmentVariable('id', data.id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation createEvent ($event: EventDTO!) {\r\n    createEvent (event: $event) {\r\n        id\r\n        name\r\n        start\r\n        end\r\n        place\r\n    }\r\n}",
+						"variables": "{\r\n  \"event\": {\r\n    \"name\": \"a test event\",\r\n    \"start\": \"2022-12-02T20:30:00+00:00\",\r\n    \"end\": \"2022-12-02T23:00:00+00:00\",\r\n    \"place\": \"a test place\"\r\n  }\r\n}"
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/graphql",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetEventById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status test', function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test('Response body is equals to expected', function() {\r",
+							"    const body = pm.response.json();\r",
+							"    const data = body.data.event;\r",
+							"    pm.expect(data.id).to.eq(postman.getEnvironmentVariable('id'));\r",
+							"    pm.expect(data.name).to.eq('a test event');\r",
+							"    pm.expect(data.start).to.eq('2022-12-02T20:30:00.000Z');\r",
+							"    pm.expect(data.end).to.eq('2022-12-02T23:00:00.000Z');\r",
+							"    pm.expect(data.place).to.eq('a test place');\r",
+							"    postman.setEnvironmentVariable('id', data.id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query event ($id: String!) {\r\n    event (id: $id) {\r\n        id\r\n        name\r\n        start\r\n        end\r\n        place\r\n    }\r\n}",
+						"variables": "{\r\n  \"id\": \"{{id}}\"\r\n}"
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/graphql",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get10FirstEvents",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status test', function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test('Response body is equals to expected', function() {\r",
+							"    const body = pm.response.json();\r",
+							"    const data = body.data.events;\r",
+							"    pm.expect(data).to.have.lengthOf(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query events ($skip: Float!, $take: Float!, $orderBy: EventOrderByWithRelationInput!) {\r\n    events (skip: $skip, take: $take, orderBy: $orderBy) {\r\n        id\r\n        name\r\n        start\r\n        end\r\n        place\r\n    }\r\n}",
+						"variables": "{\r\n  \"skip\": 0,\r\n  \"take\": 10,\r\n  \"orderBy\": {\r\n    \"start\": \"asc\"\r\n  }\r\n}"
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/graphql",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateEvent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status test', function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test('Response body is equals to expected', function() {\r",
+							"    const body = pm.response.json();\r",
+							"    const data = body.data.updateEvent;\r",
+							"    pm.expect(data.id).to.eq(postman.getEnvironmentVariable('id'));\r",
+							"    pm.expect(data.name).to.eq('a new name for this test event');\r",
+							"    pm.expect(data.start).to.eq('2022-12-02T20:30:00.000Z');\r",
+							"    pm.expect(data.end).to.eq('2022-12-02T23:00:00.000Z');\r",
+							"    pm.expect(data.place).to.eq('a test place');\r",
+							"    postman.setEnvironmentVariable('id', data.id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation updateEvent($id: String!, $event: UpdateEventInput!) {\r\n    updateEvent(id: $id, event: $event) {\r\n        id,\r\n        name,\r\n        start,\r\n        end,\r\n        place\r\n    }\r\n}",
+						"variables": "{\r\n    \"event\": {\r\n        \"name\": \"a new name for this test event\"\r\n    },\r\n    \"id\": \"{{id}}\"\r\n}"
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/graphql",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteEvent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status test', function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test('Response body is equals to expected', function() {\r",
+							"    const body = pm.response.json();\r",
+							"    const data = body.data.deleteEvent;\r",
+							"    pm.expect(data.id).to.eq(postman.getEnvironmentVariable('id'));\r",
+							"    pm.expect(data.name).to.eq('a new name for this test event');\r",
+							"    pm.expect(data.start).to.eq('2022-12-02T20:30:00.000Z');\r",
+							"    pm.expect(data.end).to.eq('2022-12-02T23:00:00.000Z');\r",
+							"    pm.expect(data.place).to.eq('a test place');\r",
+							"    postman.setEnvironmentVariable('id', data.id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation deleteEvent($id: String!) {\r\n    deleteEvent(id: $id) {\r\n        id,\r\n        name,\r\n        start,\r\n        end,\r\n        place\r\n    }\r\n}",
+						"variables": "{\r\n  \"id\": \"{{id}}\"\r\n}"
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/graphql",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

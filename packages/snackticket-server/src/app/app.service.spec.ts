@@ -15,7 +15,7 @@ describe('AppService', () => {
 
   describe('getData', () => {
     it('should return "Welcome to snackticket-server!"', () => {
-      expect(service.getData()).toEqual({
+      expect(service.getHealth()).toEqual({
         message: 'Welcome to snackticket-server!',
       });
     });

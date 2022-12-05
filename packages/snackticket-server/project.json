@@ -51,6 +51,14 @@
         "jestConfig": "packages/snackticket-server/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "graphql-generate": {
+      "executor": "nx:run-commands",
+      "outputs": ["dist/graphql/schemas"],
+      "options": {
+        "command": "ts-node src/app/resolvers/sdl.ts",
+        "cwd": "packages/snackticket-server"
+      }
     }
   },
   "tags": []
