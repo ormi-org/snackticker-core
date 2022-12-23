@@ -1,7 +1,7 @@
-import { ConfigService } from '@nestjs/config';
-import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from '@services/prisma.service';
-import { EventService } from './event.service';
+import {ConfigService} from '@nestjs/config';
+import {Test, TestingModule} from '@nestjs/testing';
+import {PrismaService} from '@services/prisma.service';
+import {EventService} from './event.service';
 
 const events = [
   {
@@ -49,9 +49,9 @@ describe('EventService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [ConfigService, EventService, PrismaService],
     })
-      .overrideProvider(PrismaService)
-      .useValue(mockPrismaService)
-      .compile();
+        .overrideProvider(PrismaService)
+        .useValue(mockPrismaService)
+        .compile();
 
     service = module.get<EventService>(EventService);
     prisma = module.get<PrismaService>(PrismaService);
@@ -70,9 +70,9 @@ describe('EventService', () => {
   describe('getEventById', () => {
     it('should return event with specified id', () => {
       expect(
-        service.getEventById({
-          id: '9d198df4-839a-4c06-aa21-9360c4c2bf45',
-        })
+          service.getEventById({
+            id: '9d198df4-839a-4c06-aa21-9360c4c2bf45',
+          }),
       ).resolves.toEqual(singleEvent);
     });
   });
@@ -80,12 +80,12 @@ describe('EventService', () => {
   describe('createEvent', () => {
     it('should successfully insert an event', () => {
       expect(
-        service.createEvent({
-          name: singleEvent.name,
-          start: singleEvent.start,
-          end: singleEvent.end,
-          place: singleEvent.place,
-        })
+          service.createEvent({
+            name: singleEvent.name,
+            start: singleEvent.start,
+            end: singleEvent.end,
+            place: singleEvent.place,
+          }),
       ).toEqual(singleEvent);
     });
   });
@@ -93,16 +93,16 @@ describe('EventService', () => {
   describe('updateEvent', () => {
     it('should successfully update an event', () => {
       expect(
-        service.updateEvent({
-          where: {},
-          data: {
-            id: singleEvent.id,
-            name: singleEvent.name,
-            start: singleEvent.start,
-            end: singleEvent.end,
-            place: singleEvent.place,
-          },
-        })
+          service.updateEvent({
+            where: {},
+            data: {
+              id: singleEvent.id,
+              name: singleEvent.name,
+              start: singleEvent.start,
+              end: singleEvent.end,
+              place: singleEvent.place,
+            },
+          }),
       ).resolves.toEqual(singleEvent);
     });
   });
@@ -110,15 +110,18 @@ describe('EventService', () => {
   describe('deleteEvent', () => {
     it('should successfully delete an event', () => {
       expect(
-        service.deleteEvent({ id: '9d198df4-839a-4c06-aa21-9360c4c2bf45' })
-      ).resolves.toEqual({ deleted: true });
+          service.deleteEvent({id: '9d198df4-839a-4c06-aa21-9360c4c2bf45'}),
+      ).resolves.toEqual({deleted: true});
     });
 
     it('should fail on wrong id', () => {
-      const dbSpy = jest.spyOn(prisma.event, 'delete').mockRejectedValueOnce(new Error('No event with this id exists'))
-      expect(
-        service.deleteEvent({ id: 'wrong uuid' })
-      ).resolves.toEqual({ deleted: false, message: expect.any(String) });
+      jest
+          .spyOn(prisma.event, 'delete')
+          .mockRejectedValueOnce(new Error('No event with this id exists'));
+      expect(service.deleteEvent({id: 'wrong uuid'})).resolves.toEqual({
+        deleted: false,
+        message: expect.any(String),
+      });
     });
   });
 });
