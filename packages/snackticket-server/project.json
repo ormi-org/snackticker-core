@@ -23,6 +23,15 @@
         }
       }
     },
+    "prisma-generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "prisma generate"
+        ],
+        "cwd": "packages/snackticket-server"
+      }
+    },
     "serve": {
       "executor": "@nrwl/node:node",
       "options": {
