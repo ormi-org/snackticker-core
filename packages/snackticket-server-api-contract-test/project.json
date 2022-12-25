@@ -23,7 +23,8 @@
           "npx ts-node prisma-seeds/reset.ts"
         ],
         "cwd": "packages/snackticket-server-api-contract-test/src/specs/graphql",
-        "parallel": false
+        "parallel": false,
+        "envFile": "packages/snackticket-server/.env.test"
       }
     }
   },
