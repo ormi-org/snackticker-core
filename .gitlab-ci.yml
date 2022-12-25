@@ -59,6 +59,7 @@ test:
     - !reference [.distributed, before_script]
     - npx nx run snackticket-server:prisma-generate
     - npx nx run snackticket-server:prisma-migrate:test
+    - npx nx run snackticket-server:serve-test &
   script:
     - npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=test --parallel=3 --ci --configuration=ci --code-coverage
 

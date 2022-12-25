@@ -20,18 +20,18 @@
       }
     },
     "graphql-event": {
-      "executor": "nx:run-commands",
+      "executor": "@nrwl/workspace:run-commands",
       "options": {
         "commands": [
-          "npx ts-node prisma-seeds/reset.ts",
-          "npx nx serve-test snackticket-server &",
-          "sleep 5 && npx ts-node prisma-seeds/event.seeding.ts",
-          "npx ts-node event.spec.ts",
-          "npx ts-node prisma-seeds/reset.ts"
+          "ts-node prisma-seeds/reset.ts",
+          "ts-node prisma-seeds/event.seeding.ts",
+          "ts-node event.spec.ts",
+          "ts-node prisma-seeds/reset.ts"
         ],
         "cwd": "packages/snackticket-server-api-contract-test/src/specs/graphql",
         "parallel": false,
         "envFile": "packages/snackticket-server/.env.dev"
+        
       },
       "configurations": {
         "test": {

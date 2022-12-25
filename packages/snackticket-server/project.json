@@ -61,11 +61,20 @@
         }
       }
     },
-    "serve-test": {
-      "executor": "nx:run-commands",
+    "serve-dev": {
+      "executor": "@nrwl/workspace:run-commands",
       "options": {
         "commands": [
-          "prisma migrate dev",
+          "nx run serve --project=snackticket-server"
+        ],
+        "cwd": "packages/snackticket-server",
+        "envFile": "packages/snackticket-server/.env.dev"
+      }
+    },
+    "serve-test": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
           "nx run serve --project=snackticket-server --configuration=test"
         ],
         "cwd": "packages/snackticket-server",
