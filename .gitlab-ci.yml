@@ -44,6 +44,11 @@ lint:
 test:
   stage: test
   extends: .distributed
+  services:
+  - name: mysql:8.0.31-debian
+    alias: mysql
+  variables:
+    MYSQL_ROOT_PASSWORD: root
   script:
     - npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=test --parallel=3 --ci --code-coverage
 

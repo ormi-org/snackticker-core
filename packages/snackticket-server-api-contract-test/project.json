@@ -5,14 +5,16 @@
   "targets": {
     "all": {
       "executor": "nx:run-command",
-      "commands": []
+      "commands": [
+        "npx nx graphql-event"
+      ]
     },
     "graphql-event": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
           "npx ts-node prisma-seeds/reset.ts",
-          "npx nx serve snackticket-server &",
+          "npx nx serve:test snackticket-server &",
           "sleep 5 && npx ts-node prisma-seeds/event.seeding.ts",
           "npx ts-node event.spec.ts",
           "npx ts-node prisma-seeds/reset.ts"

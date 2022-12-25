@@ -16,13 +16,10 @@
         "production": {
           "optimization": true,
           "extractLicenses": true,
-          "inspect": false,
-          "fileReplacements": [
-            {
-              "replace": "packages/snackticket-server/src/environments/environment.ts",
-              "with": "packages/snackticket-server/src/environments/environment.prod.ts"
-            }
-          ]
+          "inspect": false
+        },
+        "test": {
+          "optimization": true
         }
       }
     },
@@ -34,7 +31,18 @@
       "configurations": {
         "production": {
           "buildTarget": "snackticket-server:build:production"
+        },
+        "test": {
+          "buildTarget": "snackticket-server:build:test"
         }
+      }
+    },
+    "serve-test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run serve --project=snackticket-server --configuration=test",
+        "cwd": "packages/snackticket-server",
+        "envFile": "packages/snackticket-server/.env.test"
       }
     },
     "lint": {
