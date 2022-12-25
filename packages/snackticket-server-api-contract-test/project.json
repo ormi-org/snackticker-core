@@ -3,7 +3,7 @@
   "sourceRoot": "packages/snackticket-server-api-contract-test/src",
   "projectType": "application",
   "targets": {
-    "all": {
+    "test": {
       "executor": "nx:run-command",
       "commands": [
         "npx nx graphql-event"
