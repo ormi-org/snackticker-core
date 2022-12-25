@@ -14,7 +14,7 @@
       "options": {
         "commands": [
           "npx ts-node prisma-seeds/reset.ts",
-          "npx nx serve:test snackticket-server &",
+          "npx nx serve-test snackticket-server &",
           "sleep 5 && npx ts-node prisma-seeds/event.seeding.ts",
           "npx ts-node event.spec.ts",
           "npx ts-node prisma-seeds/reset.ts"

@@ -40,7 +40,10 @@
     "serve-test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "nx run serve --project=snackticket-server --configuration=test",
+        "commands": [
+          "prisma migrate dev",
+          "nx run serve --project=snackticket-server --configuration=test"
+        ],
         "cwd": "packages/snackticket-server",
         "envFile": "packages/snackticket-server/.env.test"
       }
