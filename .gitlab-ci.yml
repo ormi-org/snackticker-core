@@ -25,6 +25,8 @@ stages:
 setup:
   stage: setup
   extends: .distributed
+  script:
+    - echo "Successfuly installed and cached dependencies"
 
 workspace-lint:
   stage: test
