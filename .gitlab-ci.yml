@@ -54,6 +54,7 @@ test:
     alias: mysql
   variables:
     MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: $MYSQL_TEST_DATABASE
   before_script:
     - !reference [.distributed, before_script]
     - npx nx run snackticket-server:prisma-generate
