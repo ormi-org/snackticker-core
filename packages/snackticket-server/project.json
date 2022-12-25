@@ -32,6 +32,21 @@
         "cwd": "packages/snackticket-server"
       }
     },
+    "prisma-migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "prisma migrate dev"
+        ],
+        "cwd": "packages/snackticket-server",
+        "envFile": "packages/snackticket-server/.env.dev"
+      },
+      "configurations": {
+        "test": {
+          "envFile": "packages/snackticket-server/.env.test"
+        }
+      }
+    },
     "serve": {
       "executor": "@nrwl/node:node",
       "options": {
