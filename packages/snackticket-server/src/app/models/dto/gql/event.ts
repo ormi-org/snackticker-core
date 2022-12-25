@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
 import {Field, ObjectType} from '@nestjs/graphql';
+import {EventMeta} from './event/meta';
 
 @ObjectType()
 export class Event {
@@ -19,4 +20,12 @@ export class Event {
     description: 'Place where the event is supposed to occur',
   })
     place!: string;
+}
+
+@ObjectType()
+export class ActiveEvent extends Event {
+  @Field(() => EventMeta, {
+    description: 'Event metadata, providing data on usage basis',
+  })
+    metadata!: EventMeta;
 }

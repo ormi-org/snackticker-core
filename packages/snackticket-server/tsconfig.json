@@ -12,7 +12,7 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "src",
     "paths": {
-      "@models/gql/*": ["app/models/dto/gql/*"],
+      "@models/*": ["app/models/*"],
       "@services/*": ["app/services/*"],
       "@resolvers/*": ["app/resolvers/*"],
     }

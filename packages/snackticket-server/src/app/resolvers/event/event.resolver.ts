@@ -6,7 +6,7 @@ import {
   InputType,
   Field,
 } from '@nestjs/graphql';
-import {Event} from '@models/gql/event';
+import {Event} from '@models/dto/gql/event';
 import {EventService} from '@services/event/event.service';
 import {Prisma} from '@prisma/client';
 import {GraphQLError} from 'graphql';

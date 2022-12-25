@@ -17,7 +17,7 @@ model Wallet {
   label          String
   lastOperation  DateTime
   sourceOf       Transaction[] @relation(name: "src")
-  destionationOf Transaction[] @relation(name: "dest")
+  destinationOf Transaction[] @relation(name: "dest")
   Wallet_Pool    Wallet_Pool[]
   User_Wallet    User_Wallet[]
 }
