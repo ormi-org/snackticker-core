@@ -56,7 +56,7 @@ test:
     MYSQL_ROOT_PASSWORD: root
   before_script:
     - !reference [.distributed, before_script]
-    - npx nx run snackticket-server prisma-generate
+    - npx nx run snackticket-server:prisma-generate
   script:
     - npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=test --parallel=3 --ci --code-coverage
 
