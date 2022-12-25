@@ -10,6 +10,13 @@
           "nx run graphql-event"
         ],
         "cwd": "packages/snackticket-server-api-contract-test"
+      },
+      "configurations": {
+        "ci": {
+          "commands": [
+            "nx run graphql-event --configuration=test"
+          ]
+        }
       }
     },
     "graphql-event": {
@@ -24,7 +31,13 @@
         ],
         "cwd": "packages/snackticket-server-api-contract-test/src/specs/graphql",
         "parallel": false,
-        "envFile": "packages/snackticket-server/.env.test"
+        "envFile": "packages/snackticket-server/.env.dev"
+      },
+      "configurations": {
+        "test": {
+          "__comment.envFile": "envFile is here relative path in case called in affected nx command",
+          "envFile": "../snackticket-server/.env.test"
+        }
       }
     }
   },
