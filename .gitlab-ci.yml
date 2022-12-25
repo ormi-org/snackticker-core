@@ -1,8 +1,13 @@
 image: node:19.1-bullseye
 
 stages:
+  - setup
   - test
   - build
+
+cache:
+  paths:
+    - node_modules/
 
 .distributed:
   interruptible: true
@@ -22,6 +27,12 @@ stages:
   artifacts:
     paths:
       - node_modules/.cache/nx
+
+setup:
+  stage: setup
+  extends: .distributed
+  script:
+    - npm install
 
 workspace-lint:
   stage: test
