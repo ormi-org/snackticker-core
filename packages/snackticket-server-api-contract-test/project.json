@@ -4,10 +4,13 @@
   "projectType": "application",
   "targets": {
     "test": {
-      "executor": "nx:run-command",
-      "commands": [
-        "npx nx graphql-event"
-      ]
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run graphql-event"
+        ],
+        "cwd": "packages/snackticket-server-api-contract-test"
+      }
     },
     "graphql-event": {
       "executor": "nx:run-commands",
