@@ -3,22 +3,41 @@
   "sourceRoot": "packages/snackticket-server-api-contract-test/src",
   "projectType": "application",
   "targets": {
-    "all": {
-      "executor": "nx:run-command",
-      "commands": []
-    },
-    "graphql-event": {
+    "test": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npx ts-node prisma-seeds/reset.ts",
-          "npx nx serve snackticket-server &",
-          "sleep 5 && npx ts-node prisma-seeds/event.seeding.ts",
-          "npx ts-node event.spec.ts",
-          "npx ts-node prisma-seeds/reset.ts"
+          "nx run graphql-event"
+        ],
+        "cwd": "packages/snackticket-server-api-contract-test"
+      },
+      "configurations": {
+        "ci": {
+          "commands": [
+            "nx run graphql-event --configuration=test"
+          ]
+        }
+      }
+    },
+    "graphql-event": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "ts-node prisma-seeds/reset.ts",
+          "ts-node prisma-seeds/event.seeding.ts",
+          "ts-node event.spec.ts",
+          "ts-node prisma-seeds/reset.ts"
         ],
         "cwd": "packages/snackticket-server-api-contract-test/src/specs/graphql",
-        "parallel": false
+        "parallel": false,
+        "envFile": "packages/snackticket-server/.env.dev"
+        
+      },
+      "configurations": {
+        "test": {
+          "__comment.envFile": "envFile is here relative path in case called in affected nx command",
+          "envFile": "../snackticket-server/.env.test"
+        }
       }
     }
   },

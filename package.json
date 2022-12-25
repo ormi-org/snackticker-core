@@ -1,7 +1,7 @@
 {
   "name": "snackticket-core",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "SEE LICENSE",
   "scripts": {
     "postinstall": "ngcc --properties es2020 browser module main"
   },
@@ -35,10 +35,11 @@
     "@types/jest": "28.1.1",
     "@types/newman": "^5.3.1",
     "@types/node": "16.11.7",
-    "@typescript-eslint/eslint-plugin": "^5.43.0",
-    "@typescript-eslint/parser": "~5.33.1",
+    "@typescript-eslint/eslint-plugin": "^5.47.0",
+    "@typescript-eslint/parser": "^5.47.0",
     "cypress": "^10.7.0",
     "eslint": "^8.27.0",
+    "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
     "eslint-plugin-cypress": "^2.10.3",

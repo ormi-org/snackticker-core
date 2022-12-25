@@ -1,8 +1,8 @@
-import { ConfigService } from '@nestjs/config';
-import { Test, TestingModule } from '@nestjs/testing';
-import { EventService } from '@services/event/event.service';
-import { PrismaService } from '@services/prisma.service';
-import { EventResolver } from './event.resolver';
+import {ConfigService} from '@nestjs/config';
+import {Test, TestingModule} from '@nestjs/testing';
+import {EventService} from '@services/event/event.service';
+import {PrismaService} from '@services/prisma.service';
+import {EventResolver} from './event.resolver';
 
 describe('EventResolver', () => {
   let resolver: EventResolver;

@@ -4,7 +4,13 @@
         "es2021": true,
         "node": true
     },
-    "extends": "standard-with-typescript",
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier",
+        "google"
+    ],
     "overrides": [
     ],
     "parserOptions": {
