@@ -1,4 +1,5 @@
 {
+  "name": "snackticket-admin-client",
   "projectType": "application",
   "sourceRoot": "packages/snackticket-admin-client/src",
   "prefix": "snackticket-core",
@@ -82,7 +83,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/snackticket-admin-client"],
+      "outputs": ["{workspaceRoot}/coverage/packages/snackticket-admin-client"],
       "options": {
         "jestConfig": "packages/snackticket-admin-client/jest.config.ts",
         "passWithNoTests": true

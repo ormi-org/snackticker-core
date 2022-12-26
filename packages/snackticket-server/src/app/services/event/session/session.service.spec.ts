@@ -1,6 +1,7 @@
-import {Test, TestingModule} from '@nestjs/testing';
-import {SessionService} from './session.service';
-import {Event} from '@models/dto/gql/event';
+/* eslint-disable node/no-unpublished-import */
+import { Test, TestingModule } from '@nestjs/testing';
+import { SessionService } from './session.service';
+import { Event } from '@models/dto/gql/event';
 
 const preMadeEvent = {
   id: '9d198df4-839a-4c06-aa21-9360c4c2bf45',
@@ -27,33 +28,42 @@ const unregisteredEvent: Event = {
 };
 
 const sessions = new Map([
-  ['$2y$10$lG9hIPhwCepVAG0cKyOp1.hlPfqCBYNwWpyWKlgF1BFbNt6UKsPaO', {
-    id: '$2y$10$lG9hIPhwCepVAG0cKyOp1.hlPfqCBYNwWpyWKlgF1BFbNt6UKsPaO',
-    event: preMadeEvent,
-    active: false,
-  }],
-  ['$2y$10$4ZAazBVlb8NVL40R0ffraumQ52J/xYwgPSfuo3M2XIfk2gmMARjTK', {
-    id: '$2y$10$4ZAazBVlb8NVL40R0ffraumQ52J/xYwgPSfuo3M2XIfk2gmMARjTK',
-    event: {
-      id: '976602f6-085e-4ba9-b032-b6e79704c274',
-      name: 'Effertz Group',
-      start: '2022-03-20 03:51:30',
-      end: '2022-05-06 08:15:09',
-      place: 'Zhirnovsk',
+  [
+    '$2y$10$lG9hIPhwCepVAG0cKyOp1.hlPfqCBYNwWpyWKlgF1BFbNt6UKsPaO',
+    {
+      id: '$2y$10$lG9hIPhwCepVAG0cKyOp1.hlPfqCBYNwWpyWKlgF1BFbNt6UKsPaO',
+      event: preMadeEvent,
+      active: false,
     },
-    active: false,
-  }],
-  ['$2y$10$/Rvn.9VnEpp9ioctfAyvTOBKapSvbj28JNtxkeT1S800Cmv5KcFje', {
-    id: '$2y$10$/Rvn.9VnEpp9ioctfAyvTOBKapSvbj28JNtxkeT1S800Cmv5KcFje',
-    event: {
-      id: '0f84d090-60ad-4141-9b2c-a4597ac76adc',
-      name: 'Blanda-Robel',
-      start: '2022-10-16 06:45:23',
-      end: '2021-11-18 21:11:58',
-      place: 'Kambove',
+  ],
+  [
+    '$2y$10$4ZAazBVlb8NVL40R0ffraumQ52J/xYwgPSfuo3M2XIfk2gmMARjTK',
+    {
+      id: '$2y$10$4ZAazBVlb8NVL40R0ffraumQ52J/xYwgPSfuo3M2XIfk2gmMARjTK',
+      event: {
+        id: '976602f6-085e-4ba9-b032-b6e79704c274',
+        name: 'Effertz Group',
+        start: '2022-03-20 03:51:30',
+        end: '2022-05-06 08:15:09',
+        place: 'Zhirnovsk',
+      },
+      active: false,
     },
-    active: false,
-  }],
+  ],
+  [
+    '$2y$10$/Rvn.9VnEpp9ioctfAyvTOBKapSvbj28JNtxkeT1S800Cmv5KcFje',
+    {
+      id: '$2y$10$/Rvn.9VnEpp9ioctfAyvTOBKapSvbj28JNtxkeT1S800Cmv5KcFje',
+      event: {
+        id: '0f84d090-60ad-4141-9b2c-a4597ac76adc',
+        name: 'Blanda-Robel',
+        start: '2022-10-16 06:45:23',
+        end: '2021-11-18 21:11:58',
+        place: 'Kambove',
+      },
+      active: false,
+    },
+  ],
 ]);
 
 const singleSession = Array.from(sessions.values())[0];
@@ -87,8 +97,9 @@ describe('SessionService', () => {
   describe('getSessionById', () => {
     it('should return session with specified id', () => {
       expect(
-          service.getSessionById(
-              '$2y$10$lG9hIPhwCepVAG0cKyOp1.hlPfqCBYNwWpyWKlgF1BFbNt6UKsPaO'),
+        service.getSessionById(
+          '$2y$10$lG9hIPhwCepVAG0cKyOp1.hlPfqCBYNwWpyWKlgF1BFbNt6UKsPaO'
+        )
       ).toEqual(singleSession);
     });
   });
@@ -100,22 +111,17 @@ describe('SessionService', () => {
         start: new Date(preMadeEvent.start),
         end: new Date(preMadeEvent.end),
       };
-      expect(service.getSessionFrom(
-          expected,
-      )).toEqual(singleSession);
+      expect(service.getSessionFrom(expected)).toEqual(singleSession);
     });
 
-    it(
-        `shoud create and return session with specified event id
+    it(`shoud create and return session with specified event id
         if it does not exist`, () => {
-          const result = service.getSessionFrom(
-              unregisteredEvent,
-          );
-          expect(result.event).toEqual(unregisteredEvent);
-          expect(result.id).toBeDefined();
-          expect(typeof(result.id) === 'string').toBeTruthy();
-          expect(result.id).toMatch(/^\$2[ayb]\$.{56}$/);
-          expect(result.active).toEqual(false);
-        });
+      const result = service.getSessionFrom(unregisteredEvent);
+      expect(result.event).toEqual(unregisteredEvent);
+      expect(result.id).toBeDefined();
+      expect(typeof result.id === 'string').toBeTruthy();
+      expect(result.id).toMatch(/^\$2[ayb]\$.{56}$/);
+      expect(result.active).toEqual(false);
+    });
   });
 });

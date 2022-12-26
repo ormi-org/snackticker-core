@@ -1,10 +1,10 @@
-import {Wallet} from '../wallet';
-import {ITransactionType} from '../transaction/type';
+import { Wallet } from '../wallet';
+import { ITransactionType } from '../transaction/type';
 
 type WalletDefinition = {
   default: boolean;
   wallet: Wallet<ITransactionType>;
-}
+};
 /**
  * Event metadata
  */

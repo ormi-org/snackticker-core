@@ -2,7 +2,13 @@
   "extends": ["../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "rules": {
-    "new-cap": "off"
+    "new-cap": "off",
+    "node/no-unpublished-import": [
+      "error",
+      {
+        "allowModules": ["@nestjs/testing"]
+      }
+    ]
   },
   "overrides": [
     {

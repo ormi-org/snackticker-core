@@ -5,7 +5,7 @@ export enum TransactionType {
 }
 
 export interface ITransactionType {
-  getType(): string
+  getType(): string;
 }
 
 /**

@@ -1,6 +1,6 @@
-import {TransactionMeta} from './transaction/meta';
-import {ITransactionType} from './transaction/type';
-import {Wallet} from './wallet';
+import { TransactionMeta } from './transaction/meta';
+import { ITransactionType } from './transaction/type';
+import { Wallet } from './wallet';
 
 /* eslint-disable require-jsdoc */
 export class Transaction<T extends ITransactionType> {

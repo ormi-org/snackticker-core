@@ -1,5 +1,5 @@
-import {Transaction} from './transaction';
-import {ITransactionType} from './transaction/type';
+import { Transaction } from './transaction';
+import { ITransactionType } from './transaction/type';
 
 /* eslint-disable require-jsdoc */
 export class Wallet<T extends ITransactionType> {

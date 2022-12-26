@@ -1,6 +1,6 @@
-import {Event} from '@models/dto/gql/event';
-import {Injectable} from '@nestjs/common';
-import {EventSession} from '@models/EventSession';
+import { Event } from '@models/dto/gql/event';
+import { Injectable } from '@nestjs/common';
+import { EventSession } from '@models/EventSession';
 
 @Injectable()
 /** Session life-cycle handling service */
@@ -30,9 +30,9 @@ export class SessionService {
    * @return {EventSession}
    */
   getSessionFrom(event: Event): EventSession {
-    const predicate = Array.from(
-        this.sessions.values(),
-    ).find((_) => event.id === _.event.id);
+    const predicate = Array.from(this.sessions.values()).find(
+      (_) => event.id === _.event.id
+    );
 
     // Create session if it does not exist
     if (predicate !== undefined) {

@@ -1,11 +1,12 @@
 {
+  "name": "snackticket-ui",
   "projectType": "library",
   "sourceRoot": "packages/snackticket-ui/src",
   "prefix": "snackticket-core",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/snackticket-ui"],
+      "outputs": ["{workspaceRoot}/coverage/packages/snackticket-ui"],
       "options": {
         "jestConfig": "packages/snackticket-ui/jest.config.ts",
         "passWithNoTests": true

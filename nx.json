@@ -26,14 +26,21 @@
     },
     "lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+    },
+    "e2e": {
+      "inputs": ["default", "^default"]
+    },
+    "build-storybook": {
+      "inputs": ["default", "^default", "{workspaceRoot}/.storybook/**/*"]
     }
   },
   "defaultProject": "snackticket-device-client",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "nx/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build-storybook"]
+        "cacheableOperations": ["build-storybook"],
+        "accessToken": "OWI1NzAzNmMtOGJkYS00OTIwLWI1MDQtMDEzMjA4NWU0NjlmfHJlYWQtd3JpdGU="
       }
     }
   }

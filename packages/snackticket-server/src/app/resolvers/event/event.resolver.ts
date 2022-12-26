@@ -6,10 +6,10 @@ import {
   InputType,
   Field,
 } from '@nestjs/graphql';
-import {Event} from '@models/dto/gql/event';
-import {EventService} from '@services/event/event.service';
-import {Prisma} from '@prisma/client';
-import {GraphQLError} from 'graphql';
+import { Event } from '@models/dto/gql/event';
+import { EventService } from '@services/event/event.service';
+import { Prisma } from '@prisma/client';
+import { GraphQLError } from 'graphql';
 
 /** Data Transfer Object for Event entity */
 @InputType()
@@ -27,13 +27,13 @@ class EventDTO extends Event {
 /** Object for parameterizing event entity update */
 @InputType()
 class UpdateEventInput extends Event {
-  @Field({nullable: true})
+  @Field({ nullable: true })
   declare name: string;
-  @Field({nullable: true})
+  @Field({ nullable: true })
   declare start: Date;
-  @Field({nullable: true})
+  @Field({ nullable: true })
   declare end: Date;
-  @Field({nullable: true})
+  @Field({ nullable: true })
   declare place: string;
 }
 
@@ -41,24 +41,24 @@ class UpdateEventInput extends Event {
 @InputType()
 class UniqueEventFetchingInput {
   @Field()
-    id?: string;
+  id?: string;
 }
 
 /** Object for parameterizing complex event entity retrieving*/
 @InputType()
 class EventOrderByWithRelationInput {
-  @Field(() => String, {nullable: true})
-    id?: Prisma.SortOrder;
-  @Field(() => String, {nullable: true})
-    name?: Prisma.SortOrder;
-  @Field(() => String, {nullable: true})
-    start?: Prisma.SortOrder;
-  @Field(() => String, {nullable: true})
-    end?: Prisma.SortOrder;
-  @Field(() => String, {nullable: true})
-    place?: Prisma.SortOrder;
-  @Field(() => String, {nullable: true})
-    Event_Ticket?: Prisma.Event_TicketOrderByRelationAggregateInput;
+  @Field(() => String, { nullable: true })
+  id?: Prisma.SortOrder;
+  @Field(() => String, { nullable: true })
+  name?: Prisma.SortOrder;
+  @Field(() => String, { nullable: true })
+  start?: Prisma.SortOrder;
+  @Field(() => String, { nullable: true })
+  end?: Prisma.SortOrder;
+  @Field(() => String, { nullable: true })
+  place?: Prisma.SortOrder;
+  @Field(() => String, { nullable: true })
+  Event_Ticket?: Prisma.Event_TicketOrderByRelationAggregateInput;
 }
 
 @Resolver(Event)
@@ -76,8 +76,8 @@ export class EventResolver {
    * @return {Promise<Event|null>}
    */
   @Query(() => Event)
-  event(@Args('id', {type: () => String}) id: string) {
-    return this.eventService.getEventById({id: id});
+  event(@Args('id', { type: () => String }) id: string) {
+    return this.eventService.getEventById({ id: id });
   }
 
   /**
@@ -91,14 +91,14 @@ export class EventResolver {
    */
   @Query(() => [Event])
   events(
-    @Args('skip', {type: () => Number})
-        skip: number,
-    @Args('take', {type: () => Number})
-        take: number,
-    @Args('orderBy', {type: () => EventOrderByWithRelationInput})
-        orderBy: EventOrderByWithRelationInput,
-    @Args('cursor', {type: () => UniqueEventFetchingInput, nullable: true})
-        cursor?: UniqueEventFetchingInput,
+    @Args('skip', { type: () => Number })
+    skip: number,
+    @Args('take', { type: () => Number })
+    take: number,
+    @Args('orderBy', { type: () => EventOrderByWithRelationInput })
+    orderBy: EventOrderByWithRelationInput,
+    @Args('cursor', { type: () => UniqueEventFetchingInput, nullable: true })
+    cursor?: UniqueEventFetchingInput
   ) {
     return this.eventService.getEvents({
       skip,
@@ -119,14 +119,14 @@ export class EventResolver {
    */
   @Query(() => [Event])
   activeEvents(
-    @Args('skip', {type: () => Number})
-        skip: number,
-    @Args('take', {type: () => Number})
-        take: number,
-    @Args('orderBy', {type: () => EventOrderByWithRelationInput})
-        orderBy: EventOrderByWithRelationInput,
-    @Args('cursor', {type: () => UniqueEventFetchingInput, nullable: true})
-        cursor?: UniqueEventFetchingInput,
+    @Args('skip', { type: () => Number })
+    skip: number,
+    @Args('take', { type: () => Number })
+    take: number,
+    @Args('orderBy', { type: () => EventOrderByWithRelationInput })
+    orderBy: EventOrderByWithRelationInput,
+    @Args('cursor', { type: () => UniqueEventFetchingInput, nullable: true })
+    cursor?: UniqueEventFetchingInput
   ) {
     return this.eventService.getEvents({
       skip,
@@ -157,7 +157,7 @@ export class EventResolver {
    */
   @Mutation(() => Event)
   createEvent(
-    @Args('event', {type: () => EventDTO}) event: Prisma.EventCreateInput,
+    @Args('event', { type: () => EventDTO }) event: Prisma.EventCreateInput
   ) {
     return this.eventService.createEvent(event);
   }
@@ -170,11 +170,11 @@ export class EventResolver {
    */
   @Mutation(() => Event)
   updateEvent(
-    @Args('id', {type: () => String}) id: string,
-    @Args('event', {type: () => UpdateEventInput})
-        event: Prisma.EventUpdateInput,
+    @Args('id', { type: () => String }) id: string,
+    @Args('event', { type: () => UpdateEventInput })
+    event: Prisma.EventUpdateInput
   ) {
-    return this.eventService.updateEvent({where: {id: id}, data: event});
+    return this.eventService.updateEvent({ where: { id: id }, data: event });
   }
 
   /**
@@ -185,25 +185,26 @@ export class EventResolver {
    * @throws {GraphQLError}
    */
   @Mutation(() => Event)
-  deleteEvent(@Args('id', {type: () => String}) id: string) {
+  deleteEvent(@Args('id', { type: () => String }) id: string) {
     // Check first if running (active)
-    return this.eventService.getEvents({
-      where: {id: id},
-    }).then((events) => {
-      if (events.length == 0) {
-        throw new GraphQLError('Unkown event with specified id');
-      }
-      const ev = events[0];
-      const now = Date.now();
-      if (now >= ev.start.getDate() && now <= ev.end.getDate()) {
-        // case active
-        throw new GraphQLError(
-            'DELETE operation is not permitted on an active target event',
-        );
-      }
-      // case not running yet OR passed
-      return this.eventService.deleteEvent({id: id})
-          .then(() => ev);
-    });
+    return this.eventService
+      .getEvents({
+        where: { id: id },
+      })
+      .then((events) => {
+        if (events.length == 0) {
+          throw new GraphQLError('Unkown event with specified id');
+        }
+        const ev = events[0];
+        const now = Date.now();
+        if (now >= ev.start.getDate() && now <= ev.end.getDate()) {
+          // case active
+          throw new GraphQLError(
+            'DELETE operation is not permitted on an active target event'
+          );
+        }
+        // case not running yet OR passed
+        return this.eventService.deleteEvent({ id: id }).then(() => ev);
+      });
   }
 }

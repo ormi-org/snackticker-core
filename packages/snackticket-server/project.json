@@ -1,16 +1,19 @@
 {
+  "name": "snackticket-server",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/snackticket-server/src",
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:webpack",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/snackticket-server",
         "main": "packages/snackticket-server/src/main.ts",
         "tsConfig": "packages/snackticket-server/tsconfig.app.json",
-        "assets": ["packages/snackticket-server/src/assets"]
+        "assets": ["packages/snackticket-server/src/assets"],
+        "target": "node",
+        "compiler": "tsc"
       },
       "configurations": {
         "production": {
@@ -26,18 +29,14 @@
     "prisma-generate": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "prisma generate"
-        ],
+        "commands": ["prisma generate"],
         "cwd": "packages/snackticket-server"
       }
     },
     "prisma-migrate": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "prisma migrate dev"
-        ],
+        "commands": ["prisma migrate dev"],
         "cwd": "packages/snackticket-server",
         "envFile": "packages/snackticket-server/.env.dev"
       },
@@ -62,17 +61,15 @@
       }
     },
     "serve-dev": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "nx run serve --project=snackticket-server"
-        ],
+        "commands": ["nx run serve --project=snackticket-server"],
         "cwd": "packages/snackticket-server",
         "envFile": "packages/snackticket-server/.env.dev"
       }
     },
     "serve-test": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "commands": [
           "nx run serve --project=snackticket-server --configuration=test"
@@ -90,7 +87,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/snackticket-server"],
+      "outputs": ["{workspaceRoot}/coverage/packages/snackticket-server"],
       "options": {
         "jestConfig": "packages/snackticket-server/jest.config.ts",
         "passWithNoTests": true
@@ -98,7 +95,7 @@
     },
     "graphql-generate": {
       "executor": "nx:run-commands",
-      "outputs": ["dist/graphql/schemas"],
+      "outputs": ["{workspaceRoot}/dist/graphql/schemas"],
       "options": {
         "command": "ts-node src/app/resolvers/sdl.ts",
         "cwd": "packages/snackticket-server"

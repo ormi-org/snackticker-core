@@ -1,4 +1,5 @@
 {
+  "name": "snackticket-server-api-contract-test",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/snackticket-server-api-contract-test/src",
   "projectType": "application",
@@ -6,21 +7,17 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "nx run graphql-event"
-        ],
+        "commands": ["nx run graphql-event"],
         "cwd": "packages/snackticket-server-api-contract-test"
       },
       "configurations": {
         "ci": {
-          "commands": [
-            "nx run graphql-event --configuration=test"
-          ]
+          "commands": ["nx run graphql-event --configuration=test"]
         }
       }
     },
     "graphql-event": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "commands": [
           "ts-node prisma-seeds/reset.ts",
@@ -31,7 +28,6 @@
         "cwd": "packages/snackticket-server-api-contract-test/src/specs/graphql",
         "parallel": false,
         "envFile": "packages/snackticket-server/.env.dev"
-        
       },
       "configurations": {
         "test": {

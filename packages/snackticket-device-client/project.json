@@ -1,4 +1,5 @@
 {
+  "name": "snackticket-device-client",
   "projectType": "application",
   "sourceRoot": "packages/snackticket-device-client/src",
   "prefix": "snackticket-core",
@@ -82,7 +83,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/snackticket-device-client"],
+      "outputs": [
+        "{workspaceRoot}/coverage/packages/snackticket-device-client"
+      ],
       "options": {
         "jestConfig": "packages/snackticket-device-client/jest.config.ts",
         "passWithNoTests": true

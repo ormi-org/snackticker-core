@@ -1,4 +1,5 @@
 {
+  "name": "snackticket-server-crypto",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/snackticket-server-crypto/src",
   "projectType": "library",
@@ -12,7 +13,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/snackticket-server-crypto"],
+      "outputs": [
+        "{workspaceRoot}/coverage/packages/snackticket-server-crypto"
+      ],
       "options": {
         "jestConfig": "packages/snackticket-server-crypto/jest.config.ts",
         "passWithNoTests": true
